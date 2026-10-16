@@ -3,20 +3,24 @@ import { getFirestore, Firestore } from 'firebase/firestore';
 import { getAuth, Auth } from 'firebase/auth';
 import { getStorage, FirebaseStorage } from 'firebase/storage';
 
+const rawApiKey = (import.meta.env.VITE_FIREBASE_API_KEY || '').trim();
+// Autocorrección de clave de consola si venía con typo de mayúsculas (BFFApZ vs BFFaPZ)
+const validApiKey = rawApiKey === 'AIzaSyBFFApZAI8kKJM1Ut8qJzx1wpdtSzHBsW8'
+  ? 'AIzaSyBFFaPZAI8kKJM1Ut8qJzx1wpdtSzHBsW8'
+  : (rawApiKey || 'AIzaSyBFFaPZAI8kKJM1Ut8qJzx1wpdtSzHBsW8');
+
 const firebaseConfig = {
-  apiKey: import.meta.env.VITE_FIREBASE_API_KEY || '',
-  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN || '',
-  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID || '',
-  storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET || '',
-  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID || '',
-  appId: import.meta.env.VITE_FIREBASE_APP_ID || ''
+  apiKey: validApiKey,
+  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN || 'inversa-fe40f.firebaseapp.com',
+  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID || 'inversa-fe40f',
+  storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET || 'inversa-fe40f.firebasestorage.app',
+  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID || '216146538356',
+  appId: import.meta.env.VITE_FIREBASE_APP_ID || '1:216146538356:web:e1af78e81991263125c621'
 };
 
-// Claves de API inactivas, placeholders o de ejemplo que generan auth/api-key-not-valid
 const INVALID_API_KEYS = [
   'tu_api_key_aqui',
-  'dummy-key-for-development',
-  'AIzaSyBFFApZAI8kKJM1Ut8qJzx1wpdtSzHBsW8'
+  'dummy-key-for-development'
 ];
 
 export const isFirebaseConfigured = Boolean(
