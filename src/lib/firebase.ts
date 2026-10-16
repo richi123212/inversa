@@ -12,34 +12,31 @@ const firebaseConfig = {
   appId: import.meta.env.VITE_FIREBASE_APP_ID || ''
 };
 
+// Claves de API inactivas, placeholders o de ejemplo que generan auth/api-key-not-valid
+const INVALID_API_KEYS = [
+  'tu_api_key_aqui',
+  'dummy-key-for-development',
+  'AIzaSyBFFApZAI8kKJM1Ut8qJzx1wpdtSzHBsW8'
+];
+
 export const isFirebaseConfigured = Boolean(
   firebaseConfig.apiKey &&
   firebaseConfig.projectId &&
-  firebaseConfig.apiKey !== 'tu_api_key_aqui' &&
-  firebaseConfig.projectId !== 'inversa-tech-demo'
+  !INVALID_API_KEYS.includes(firebaseConfig.apiKey) &&
+  firebaseConfig.apiKey.length > 20 &&
+  firebaseConfig.projectId !== 'inversa-tech-demo' &&
+  firebaseConfig.projectId !== 'tu-proyecto' &&
+  firebaseConfig.projectId !== 'demo-project'
 );
 
-let app: FirebaseApp;
+let app: FirebaseApp | undefined = undefined;
 let db: Firestore | null = null;
 let auth: Auth | null = null;
 let storage: FirebaseStorage | null = null;
 
 try {
-  if (firebaseConfig.apiKey && firebaseConfig.projectId) {
+  if (isFirebaseConfigured) {
     app = getApps().length === 0 ? initializeApp(firebaseConfig) : getApp();
-    db = getFirestore(app);
-    auth = getAuth(app);
-    storage = getStorage(app);
-  } else {
-    // Inicialización dummy preventiva para evitar que crashee si faltan envs
-    app = getApps().length === 0 ? initializeApp({
-      apiKey: "dummy-key-for-development",
-      authDomain: "demo.firebaseapp.com",
-      projectId: "demo-project",
-      storageBucket: "demo-project.appspot.com",
-      messagingSenderId: "1234567890",
-      appId: "1:1234567890:web:abcdef123456"
-    }) : getApp();
     db = getFirestore(app);
     auth = getAuth(app);
     storage = getStorage(app);
@@ -49,4 +46,4 @@ try {
 }
 
 export { app, db, auth, storage };
-export default app!;
+export default app;
