@@ -6,12 +6,10 @@ import {
   Store, 
   Info, 
   Mail, 
-  ShieldCheck, 
   Menu, 
   X
 } from 'lucide-react';
 import { useCart } from '../context/CartContext';
-import { useAuth } from '../context/AuthContext';
 import { InversaLogo } from './InversaLogo';
 
 interface NavbarProps {
@@ -28,7 +26,6 @@ export const Navbar: React.FC<NavbarProps> = ({
   setSearchQuery
 }) => {
   const { totalItems, openCart } = useCart();
-  const { isAdmin } = useAuth();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const navigate = useNavigate();
 
@@ -132,20 +129,6 @@ export const Navbar: React.FC<NavbarProps> = ({
                 </button>
               </>
             )}
-
-            {/* Admin Portal Button */}
-            <Link
-              to="/admin"
-              className={`p-2.5 rounded-xl border transition-all duration-200 flex items-center gap-2 text-xs font-semibold ${
-                isAdmin
-                  ? 'bg-cyan-500/15 border-cyan-500/40 text-cyan-300'
-                  : 'bg-[#0F172A] border-[#1E293B] text-slate-400 hover:text-white hover:border-slate-600'
-              }`}
-              title={isAdmin ? "Panel Administrativo Activo" : "Acceso Administrativo"}
-            >
-              <ShieldCheck className="w-5 h-5" />
-              <span className="hidden sm:inline font-mono">{isAdmin ? 'ADMIN' : 'ACCESO'}</span>
-            </Link>
 
             {/* Mobile Menu Button */}
             <button

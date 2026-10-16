@@ -1,5 +1,6 @@
 import React from 'react';
-import { Shield, Terminal, Zap, MessageSquare } from 'lucide-react';
+import { Link } from 'react-router-dom';
+import { Shield, Terminal, Zap, MessageSquare, User } from 'lucide-react';
 import { InversaLogo } from './InversaLogo';
 
 interface FooterProps {
@@ -73,7 +74,7 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
             <div className="flex flex-col gap-2">
               <button
                 onClick={() => onNavigate?.('contacto')}
-                className="inline-flex items-center justify-center gap-2 w-full py-2.5 px-4 rounded-xl bg-cyan-500/10 hover:bg-cyan-500/20 border border-cyan-500/30 text-cyan-300 text-xs font-semibold transition-all"
+                className="inline-flex items-center justify-center gap-2 w-full py-2.5 px-4 rounded-xl bg-cyan-500/10 hover:bg-cyan-500/20 border border-cyan-500/30 text-cyan-300 text-xs font-semibold transition-all cursor-pointer"
               >
                 Mesa de Atención Corporativa
               </button>
@@ -86,6 +87,14 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
                 <MessageSquare className="w-3.5 h-3.5 text-cyan-400" />
                 Mesa de Ayuda Directa
               </a>
+              <Link
+                to="/admin"
+                className="inline-flex items-center justify-center gap-2 w-full py-2 px-4 rounded-xl bg-slate-900/40 hover:bg-[#0F172A] border border-slate-800 hover:border-cyan-500/40 text-slate-400 hover:text-cyan-300 text-xs font-mono font-medium transition-all"
+                title="Acceso de Usuario"
+              >
+                <User className="w-3.5 h-3.5 text-slate-500" />
+                <span>Usuario</span>
+              </Link>
             </div>
           </div>
 
@@ -93,8 +102,12 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
 
         <div className="mt-12 pt-6 border-t border-[#1E293B] flex flex-col sm:flex-row items-center justify-between gap-4 text-[11px] text-slate-500 font-mono">
           <p>© {new Date().getFullYear()} Inversa. Tecnología en Movimiento. Todos los derechos reservados.</p>
-          <div className="flex items-center gap-1 text-slate-400">
-            Precios expresados en Pesos Mexicanos (MXN).
+          <div className="flex items-center gap-3 text-slate-400">
+            <span>Precios expresados en Pesos Mexicanos (MXN).</span>
+            <span className="text-slate-600">•</span>
+            <Link to="/admin" className="hover:text-cyan-400 transition-colors">
+              Usuario
+            </Link>
           </div>
         </div>
       </div>
