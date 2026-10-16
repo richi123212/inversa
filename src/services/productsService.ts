@@ -253,18 +253,27 @@ export const INITIAL_PRODUCTOS: Producto[] = [
   }
 ];
 
-const LOCAL_STORAGE_PRODUCTS_KEY = 'inversa_custom_products_v2';
+const LOCAL_STORAGE_PRODUCTS_KEY = 'inversa_catalog_products_v3';
 
-const getLocalCustomProducts = (): Producto[] => {
+const getLocalProducts = (): Producto[] => {
   try {
     const saved = localStorage.getItem(LOCAL_STORAGE_PRODUCTS_KEY);
-    return saved ? JSON.parse(saved) : [];
-  } catch {
-    return [];
+    if (saved) {
+      const parsed = JSON.parse(saved);
+      if (Array.isArray(parsed) && parsed.length > 0) {
+        return parsed;
+      }
+    }
+  } catch (e) {
+    console.warn('Error al leer productos locales:', e);
   }
+  try {
+    localStorage.setItem(LOCAL_STORAGE_PRODUCTS_KEY, JSON.stringify(INITIAL_PRODUCTOS));
+  } catch {}
+  return INITIAL_PRODUCTOS;
 };
 
-const saveLocalCustomProducts = (products: Producto[]) => {
+const saveLocalProducts = (products: Producto[]) => {
   try {
     localStorage.setItem(LOCAL_STORAGE_PRODUCTS_KEY, JSON.stringify(products));
   } catch (e) {
@@ -284,12 +293,11 @@ export const getProductos = async (): Promise<Producto[]> => {
         } as Producto));
       }
     } catch (e) {
-      console.warn('Consulta a Firestore no disponible, usando base inicial:', e);
+      console.warn('Consulta a Firestore no disponible, usando base local:', e);
     }
   }
 
-  const localProducts = getLocalCustomProducts();
-  return [...localProducts, ...INITIAL_PRODUCTOS];
+  return getLocalProducts();
 };
 
 const LOCAL_STORAGE_CATEGORIES_KEY = 'inversa_custom_categories_v2';
@@ -379,11 +387,11 @@ export const updateCategoria = async (id: string, updates: Partial<Categoria>): 
 
   // Si se modificó el nombre de la categoría, sincronizar productos locales
   if (updates.nombre) {
-    const localProds = getLocalCustomProducts();
+    const localProds = getLocalProducts();
     const prodsUpdated = localProds.map((p) => 
       p.categoriaId === id ? { ...p, categoriaNombre: updates.nombre! } : p
     );
-    saveLocalCustomProducts(prodsUpdated);
+    saveLocalProducts(prodsUpdated);
   }
 };
 
@@ -407,6 +415,11 @@ export const resetCategoriasToDefault = async (): Promise<Categoria[]> => {
   return INITIAL_CATEGORIAS;
 };
 
+export const resetProductsToDefault = async (): Promise<Producto[]> => {
+  saveLocalProducts(INITIAL_PRODUCTOS);
+  return INITIAL_PRODUCTOS;
+};
+
 export const createProducto = async (productoData: Omit<Producto, 'id'>): Promise<Producto> => {
   if (isFirebaseConfigured && db) {
     try {
@@ -414,10 +427,13 @@ export const createProducto = async (productoData: Omit<Producto, 'id'>): Promis
         ...productoData,
         createdAt: serverTimestamp()
       });
-      return {
+      const created: Producto = {
         id: docRef.id,
         ...productoData
       };
+      const current = getLocalProducts();
+      saveLocalProducts([created, ...current]);
+      return created;
     } catch (e) {
       console.error('Error al crear producto en Firestore:', e);
     }
@@ -425,10 +441,10 @@ export const createProducto = async (productoData: Omit<Producto, 'id'>): Promis
 
   const newProduct: Producto = {
     ...productoData,
-    id: `local-prod-${Date.now()}`
+    id: `prod-${Date.now()}`
   };
-  const current = getLocalCustomProducts();
-  saveLocalCustomProducts([newProduct, ...current]);
+  const current = getLocalProducts();
+  saveLocalProducts([newProduct, ...current]);
   return newProduct;
 };
 
@@ -437,15 +453,14 @@ export const updateProducto = async (id: string, updates: Partial<Producto>): Pr
     try {
       const docRef = doc(db, 'productos', id);
       await updateDoc(docRef, updates);
-      return;
     } catch (e) {
       console.warn('Error al actualizar en Firestore, actualizando local:', e);
     }
   }
 
-  const current = getLocalCustomProducts();
+  const current = getLocalProducts();
   const updated = current.map((p) => (p.id === id ? { ...p, ...updates } : p));
-  saveLocalCustomProducts(updated);
+  saveLocalProducts(updated);
 };
 
 export const deleteProducto = async (id: string): Promise<void> => {
@@ -453,14 +468,13 @@ export const deleteProducto = async (id: string): Promise<void> => {
     try {
       const docRef = doc(db, 'productos', id);
       await deleteDoc(docRef);
-      return;
     } catch (e) {
       console.warn('Error al eliminar en Firestore, eliminando local:', e);
     }
   }
 
-  const current = getLocalCustomProducts();
-  saveLocalCustomProducts(current.filter((p) => p.id !== id));
+  const current = getLocalProducts();
+  saveLocalProducts(current.filter((p) => p.id !== id));
 };
 
 export const uploadProductImage = async (file: File): Promise<string> => {
