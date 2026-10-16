@@ -284,13 +284,20 @@ const saveLocalProducts = (products: Producto[]) => {
 export const getProductos = async (): Promise<Producto[]> => {
   if (isFirebaseConfigured && db) {
     try {
-      const q = query(collection(db, 'productos'), orderBy('createdAt', 'desc'));
-      const snapshot = await getDocs(q);
-      if (!snapshot.empty) {
-        return snapshot.docs.map((docSnap) => ({
+      let snapshot;
+      try {
+        const q = query(collection(db, 'productos'), orderBy('createdAt', 'desc'));
+        snapshot = await getDocs(q);
+      } catch {
+        snapshot = await getDocs(collection(db, 'productos'));
+      }
+      if (snapshot && !snapshot.empty) {
+        const prods = snapshot.docs.map((docSnap) => ({
           id: docSnap.id,
           ...docSnap.data()
         } as Producto));
+        saveLocalProducts(prods);
+        return prods;
       }
     } catch (e) {
       console.warn('Consulta a Firestore no disponible, usando base local:', e);
@@ -333,7 +340,9 @@ export const getCategorias = async (): Promise<Categoria[]> => {
     try {
       const snapshot = await getDocs(collection(db, 'categorias'));
       if (!snapshot.empty) {
-        return snapshot.docs.map((d) => ({ id: d.id, ...d.data() } as Categoria));
+        const cats = snapshot.docs.map((d) => ({ id: d.id, ...d.data() } as Categoria));
+        saveLocalCategories(cats);
+        return cats;
       }
     } catch (e) {
       console.warn('Categorias desde Firestore no disponibles, usando base local:', e);
