@@ -12,15 +12,13 @@ import {
   HelpCircle,
   CheckCircle2,
   X,
-  MessageSquare,
-  Sparkles,
-  Zap
+  MessageSquare
 } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 import { InversaLogo } from '../components/InversaLogo';
 
 export const LoginPage: React.FC = () => {
-  const { login, loginAsDemo, isAdmin } = useAuth();
+  const { login, isAdmin } = useAuth();
   const navigate = useNavigate();
 
   const [email, setEmail] = useState(() => {
@@ -60,30 +58,6 @@ export const LoginPage: React.FC = () => {
     }, 1000);
     return () => clearInterval(interval);
   }, [lockoutSeconds]);
-
-  const handleFillDemo = (type: 'corporativo' | 'demo') => {
-    setError('');
-    if (type === 'corporativo') {
-      setEmail('admin@inversati.com');
-      setPassword('Inversa#2026!Admin');
-    } else {
-      setEmail('admin@inversa.com');
-      setPassword('admin1234');
-    }
-  };
-
-  const handleInstantDemoLogin = async () => {
-    setError('');
-    setLoading(true);
-    try {
-      await loginAsDemo();
-      navigate('/admin');
-    } catch (err: any) {
-      setError(err?.message || 'Error al iniciar sesión de prueba.');
-    } finally {
-      setLoading(false);
-    }
-  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -274,55 +248,6 @@ export const LoginPage: React.FC = () => {
               )}
             </button>
           </form>
-
-          {/* Panel Oficial de Acceso de Demostración / Pruebas */}
-          <div className="mt-5 p-3.5 rounded-2xl bg-cyan-950/25 border border-cyan-500/25 backdrop-blur-sm">
-            <div className="flex items-center justify-between mb-2">
-              <span className="text-xs font-bold text-cyan-300 flex items-center gap-1.5">
-                <Sparkles className="w-3.5 h-3.5 text-cyan-400" />
-                Acceso de Prueba / Demostración
-              </span>
-              <div className="flex items-center gap-1.5">
-                <button
-                  type="button"
-                  onClick={() => handleFillDemo('corporativo')}
-                  className="text-[10px] font-mono font-semibold text-cyan-300 hover:text-white px-2 py-0.5 rounded-md bg-cyan-500/20 hover:bg-cyan-500/35 border border-cyan-500/40 transition-all cursor-pointer"
-                  title="Autocompletar con admin@inversati.com"
-                >
-                  Admin TI
-                </button>
-                <button
-                  type="button"
-                  onClick={() => handleFillDemo('demo')}
-                  className="text-[10px] font-mono font-semibold text-cyan-300 hover:text-white px-2 py-0.5 rounded-md bg-cyan-500/20 hover:bg-cyan-500/35 border border-cyan-500/40 transition-all cursor-pointer"
-                  title="Autocompletar con admin@inversa.com"
-                >
-                  Demo
-                </button>
-              </div>
-            </div>
-
-            <div className="text-[10px] text-slate-400 font-mono leading-relaxed space-y-1 bg-[#070B14]/70 p-2.5 rounded-xl border border-white/5">
-              <div className="flex items-center justify-between gap-2">
-                <span className="text-slate-500">Admin TI:</span>
-                <span className="text-cyan-200">admin@inversati.com / Inversa#2026!Admin</span>
-              </div>
-              <div className="flex items-center justify-between gap-2">
-                <span className="text-slate-500">Prueba Demo:</span>
-                <span className="text-cyan-200">admin@inversa.com / admin1234</span>
-              </div>
-            </div>
-
-            <button
-              type="button"
-              onClick={handleInstantDemoLogin}
-              disabled={loading}
-              className="w-full mt-2.5 py-2 px-3 rounded-xl bg-gradient-to-r from-cyan-500/20 to-blue-500/20 hover:from-cyan-500/30 hover:to-blue-500/30 border border-cyan-500/40 text-cyan-300 hover:text-white text-xs font-bold flex items-center justify-center gap-2 transition-all cursor-pointer active:scale-[0.99]"
-            >
-              <Zap className="w-3.5 h-3.5 text-cyan-400" />
-              <span>Entrar Directo como Administrador Demo</span>
-            </button>
-          </div>
 
           {/* Sello de Seguridad Corporativo */}
           <div className="mt-5 pt-4 border-t border-[#1E2E4E]/80 flex items-center justify-between text-[11px] text-slate-400">
