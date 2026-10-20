@@ -12,7 +12,7 @@ import { Producto, Categoria } from '../types';
 import { getProductos, getCategorias } from '../services/productsService';
 import { ProductCard } from '../components/ProductCard';
 import { ProductDetailModal } from '../components/ProductDetailModal';
-import { WebInteractiveQuoter } from '../components/WebInteractiveQuoter';
+import { DynamicSoftwareConfigurator } from '../components/configurator/DynamicSoftwareConfigurator';
 import { ProcessorCircuitAnimation } from '../components/ProcessorCircuitAnimation';
 import { CatalogBackgroundCircuit } from '../components/CatalogBackgroundCircuit';
 
@@ -252,9 +252,9 @@ export const CatalogPage: React.FC<CatalogPageProps> = ({
           </div>
         )}
 
-        {/* View Switcher: Interactive Software Quoter vs Hardware Catalog with Background Circuit */}
+        {/* View Switcher: Interactive Dynamic Visual Configurator vs Hardware Catalog with Background Circuit */}
         {activeTab === 'crea_tu_web' ? (
-          <WebInteractiveQuoter />
+          <DynamicSoftwareConfigurator />
         ) : (
           <div className="relative rounded-2xl p-6 sm:p-8 bg-zinc-950/60 border border-zinc-800/80 min-h-[500px]">
             
