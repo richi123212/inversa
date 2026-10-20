@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Shield, Terminal, Zap, MessageSquare, User } from 'lucide-react';
+import { Shield, Terminal, Zap, MessageSquare, User, FileCheck, Truck, CreditCard } from 'lucide-react';
 import { InversaLogo } from './InversaLogo';
 
 interface FooterProps {
@@ -9,105 +9,118 @@ interface FooterProps {
 
 export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
   const whatsappNumber = import.meta.env.VITE_WHATSAPP_PHONE_NUMBER || '5215555555555';
+  const cleanPhone = whatsappNumber.replace(/[^0-9]/g, '');
 
   return (
-    <footer className="mt-20 border-t border-[#1E293B] bg-[#05080E] text-slate-400">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14">
+    <footer className="mt-20 border-t border-zinc-800 bg-zinc-950 text-zinc-400">
+      <div className="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8 py-14">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-10">
           
           {/* Brand Info with Official Inversa Logo */}
           <div className="space-y-4 md:col-span-1">
             <button 
-              onClick={() => onNavigate?.('tienda')}
-              className="text-left group cursor-pointer"
+              onClick={() => onNavigate?.('tienda', 'hardware')}
+              className="text-left group cursor-pointer focus:outline-none"
             >
               <InversaLogo size="md" showText={true} animated={false} />
             </button>
-            <p className="text-xs text-slate-400 leading-relaxed mt-3">
-              División corporativa de hardware especializado de alto rendimiento y consultoría en arquitectura de software escalable.
+            <p className="text-xs text-zinc-400 leading-relaxed mt-3">
+              Soluciones integrales de hardware de alto rendimiento y arquitectura digital a la medida con facturación inmediata y cobertura nacional.
             </p>
-            <div className="flex items-center gap-2 pt-2 text-[10px] font-mono text-cyan-400">
-              <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse" />
-              Sistemas Operativos 24/7 en Infraestructura Cloud
+            <div className="flex items-center gap-2 pt-2 text-[11px] font-mono text-zinc-400">
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
+              <span>Facturación CFDI 4.0 • Precios en MXN</span>
             </div>
           </div>
 
           {/* Categorías Hardware */}
           <div>
-            <h4 className="text-xs font-mono font-bold uppercase tracking-wider text-white mb-4 flex items-center gap-2">
-              <Terminal className="w-3.5 h-3.5 text-cyan-400" />
-              Hardware &amp; Cómputo
+            <h4 className="text-xs font-mono font-semibold uppercase tracking-wider text-white mb-4 flex items-center gap-2">
+              <Terminal className="w-3.5 h-3.5 text-zinc-400" />
+              Hardware &amp; Equipamiento
             </h4>
-            <ul className="space-y-2.5 text-xs text-slate-400">
-              <li onClick={() => onNavigate?.('tienda', 'hardware')} className="hover:text-cyan-400 transition-colors cursor-pointer">Workstations &amp; Cómputo Móvil M3</li>
-              <li onClick={() => onNavigate?.('tienda', 'hardware')} className="hover:text-cyan-400 transition-colors cursor-pointer">Aislamiento Acústico Industrial</li>
-              <li onClick={() => onNavigate?.('tienda', 'hardware')} className="hover:text-cyan-400 transition-colors cursor-pointer">Periféricos Programables QMK/VIA</li>
-              <li onClick={() => onNavigate?.('tienda', 'hardware')} className="hover:text-cyan-400 transition-colors cursor-pointer">Procesamiento Gráfico RTX Serie 40</li>
-              <li onClick={() => onNavigate?.('tienda', 'hardware')} className="hover:text-cyan-400 transition-colors cursor-pointer">Displays Curvos UltraWide 4K</li>
+            <ul className="space-y-2.5 text-xs text-zinc-400">
+              <li onClick={() => onNavigate?.('tienda', 'hardware')} className="hover:text-white transition-colors cursor-pointer">Laptops &amp; Workstations</li>
+              <li onClick={() => onNavigate?.('tienda', 'hardware')} className="hover:text-white transition-colors cursor-pointer">Tarjetas Gráficas (GPUs)</li>
+              <li onClick={() => onNavigate?.('tienda', 'hardware')} className="hover:text-white transition-colors cursor-pointer">Audio Profesional</li>
+              <li onClick={() => onNavigate?.('tienda', 'hardware')} className="hover:text-white transition-colors cursor-pointer">Monitores &amp; Pantallas</li>
+              <li onClick={() => onNavigate?.('tienda', 'hardware')} className="hover:text-white transition-colors cursor-pointer">Periféricos &amp; Teclados</li>
             </ul>
           </div>
 
           {/* Soluciones Web */}
           <div>
-            <h4 className="text-xs font-mono font-bold uppercase tracking-wider text-white mb-4 flex items-center gap-2">
-              <Zap className="w-3.5 h-3.5 text-blue-400" />
-              Arquitectura de Software
+            <h4 className="text-xs font-mono font-semibold uppercase tracking-wider text-white mb-4 flex items-center gap-2">
+              <Zap className="w-3.5 h-3.5 text-zinc-400" />
+              Soluciones Web &amp; Software
             </h4>
-            <ul className="space-y-2.5 text-xs text-slate-400">
-              <li onClick={() => onNavigate?.('tienda', 'crea_tu_web')} className="hover:text-blue-400 transition-colors cursor-pointer">Landing Pages de Alto Desempeño</li>
-              <li onClick={() => onNavigate?.('tienda', 'crea_tu_web')} className="hover:text-blue-400 transition-colors cursor-pointer">Plataformas E-Commerce B2B / B2C</li>
-              <li onClick={() => onNavigate?.('tienda', 'crea_tu_web')} className="hover:text-blue-400 transition-colors cursor-pointer">SaaS Empresarial &amp; Dashboards</li>
-              <li onClick={() => onNavigate?.('tienda', 'crea_tu_web')} className="hover:text-blue-400 transition-colors cursor-pointer">Integración de Pasarelas y APIs</li>
-              <li onClick={() => onNavigate?.('tienda', 'crea_tu_web')} className="hover:text-cyan-400 transition-colors cursor-pointer text-cyan-400/90 font-medium">Configurador &amp; Cotizador Web</li>
+            <ul className="space-y-2.5 text-xs text-zinc-400">
+              <li onClick={() => onNavigate?.('tienda', 'crea_tu_web')} className="hover:text-white transition-colors cursor-pointer">Landing Pages Corporativas</li>
+              <li onClick={() => onNavigate?.('tienda', 'crea_tu_web')} className="hover:text-white transition-colors cursor-pointer">Comercio Electrónico (E-Commerce)</li>
+              <li onClick={() => onNavigate?.('tienda', 'crea_tu_web')} className="hover:text-white transition-colors cursor-pointer">SaaS &amp; Dashboards Empresariales</li>
+              <li onClick={() => onNavigate?.('tienda', 'crea_tu_web')} className="hover:text-white transition-colors cursor-pointer">Portales Web Institucionales</li>
+              <li onClick={() => onNavigate?.('tienda', 'crea_tu_web')} className="hover:text-white transition-colors cursor-pointer text-zinc-200 font-medium">Cotizador &amp; Configurador Web</li>
             </ul>
           </div>
 
-          {/* Contacto Institucional */}
+          {/* Contacto Institucional & Trust Signals */}
           <div>
-            <h4 className="text-xs font-mono font-bold uppercase tracking-wider text-white mb-4 flex items-center gap-2">
+            <h4 className="text-xs font-mono font-semibold uppercase tracking-wider text-white mb-4 flex items-center gap-2">
               <Shield className="w-3.5 h-3.5 text-emerald-400" />
-              Mesa de Atención Técnica
+              Atención a Empresas
             </h4>
-            <p className="text-xs text-slate-400 mb-4 leading-relaxed">
-              Consulte con nuestros ingenieros para requerimientos empresariales o cotizaciones por volumen.
+            <p className="text-xs text-zinc-400 mb-4 leading-relaxed">
+              Consulte con nuestro equipo para requerimientos empresariales, licitaciones o cotizaciones por volumen.
             </p>
             <div className="flex flex-col gap-2">
-              <button
-                onClick={() => onNavigate?.('contacto')}
-                className="inline-flex items-center justify-center gap-2 w-full py-2.5 px-4 rounded-xl bg-cyan-500/10 hover:bg-cyan-500/20 border border-cyan-500/30 text-cyan-300 text-xs font-semibold transition-all cursor-pointer"
-              >
-                Mesa de Atención Corporativa
-              </button>
               <a
-                href={`https://wa.me/${whatsappNumber.replace(/[^0-9]/g, '')}?text=${encodeURIComponent('Estimado equipo de Inversa, solicito asistencia técnica para requerimientos de hardware y software.')}`}
+                href={`https://wa.me/${cleanPhone}?text=${encodeURIComponent('Hola, me comunico desde el portal de Inversa para solicitar asistencia para mi empresa.')}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center justify-center gap-2 w-full py-2.5 px-4 rounded-xl bg-[#0F172A] hover:bg-[#1E293B] border border-[#1E293B] hover:border-cyan-500/50 text-slate-300 text-xs font-semibold transition-all"
+                className="inline-flex items-center justify-center gap-2 w-full py-2 px-3 rounded-lg bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 text-zinc-200 text-xs font-medium transition-colors"
               >
-                <MessageSquare className="w-3.5 h-3.5 text-cyan-400" />
-                Mesa de Ayuda Directa
+                <MessageSquare className="w-3.5 h-3.5 text-emerald-400" />
+                <span>Hablar con un Asesor (WhatsApp)</span>
               </a>
+
+              <button
+                onClick={() => onNavigate?.('contacto')}
+                className="inline-flex items-center justify-center gap-2 w-full py-2 px-3 rounded-lg bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 text-zinc-200 text-xs font-medium transition-colors"
+              >
+                <span>Mesa de Contacto Formal</span>
+              </button>
+
               <Link
                 to="/admin"
-                className="inline-flex items-center justify-center gap-2 w-full py-2 px-4 rounded-xl bg-slate-900/40 hover:bg-[#0F172A] border border-slate-800 hover:border-cyan-500/40 text-slate-400 hover:text-cyan-300 text-xs font-mono font-medium transition-all"
-                title="Acceso de Usuario"
+                className="inline-flex items-center justify-center gap-1.5 w-full py-1.5 px-3 rounded-lg text-zinc-500 hover:text-zinc-300 text-[11px] font-mono transition-colors"
               >
-                <User className="w-3.5 h-3.5 text-slate-500" />
-                <span>Usuario</span>
+                <User className="w-3 h-3" />
+                <span>Acceso Administrativo</span>
               </Link>
             </div>
           </div>
 
         </div>
 
-        <div className="mt-12 pt-6 border-t border-[#1E293B] flex flex-col sm:flex-row items-center justify-between gap-4 text-[11px] text-slate-500 font-mono">
-          <p>© {new Date().getFullYear()} Inversa. Tecnología en Movimiento. Todos los derechos reservados.</p>
-          <div className="flex items-center gap-3 text-slate-400">
-            <span>Precios expresados en Pesos Mexicanos (MXN).</span>
-            <span className="text-slate-600">•</span>
-            <Link to="/admin" className="hover:text-cyan-400 transition-colors">
-              Usuario
-            </Link>
+        {/* Corporate Trust Badges in Footer */}
+        <div className="mt-10 pt-6 border-t border-zinc-800/80 flex flex-wrap items-center justify-between gap-4 text-xs text-zinc-500">
+          <div className="flex flex-wrap items-center gap-4 sm:gap-6 font-mono text-[11px]">
+            <span className="flex items-center gap-1.5 text-zinc-400">
+              <FileCheck className="w-3.5 h-3.5 text-sky-400" />
+              <span>CFDI 4.0 con IVA Desglosado</span>
+            </span>
+            <span className="flex items-center gap-1.5 text-zinc-400">
+              <Truck className="w-3.5 h-3.5 text-zinc-300" />
+              <span>Envíos Nacionales DHL / FedEx</span>
+            </span>
+            <span className="flex items-center gap-1.5 text-zinc-400">
+              <CreditCard className="w-3.5 h-3.5 text-emerald-400" />
+              <span>SPEI • Stripe • Mercado Pago</span>
+            </span>
+          </div>
+
+          <div className="text-[11px] text-zinc-500 font-mono">
+            © {new Date().getFullYear()} INVERSA. Todos los derechos reservados.
           </div>
         </div>
       </div>

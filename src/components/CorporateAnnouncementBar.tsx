@@ -1,26 +1,21 @@
 import React, { useState, useEffect } from 'react';
-import { ShieldCheck, Truck, Receipt, Cpu } from 'lucide-react';
+import { ShieldCheck, Truck, Receipt, Sparkles } from 'lucide-react';
 
 const ANNOUNCEMENTS = [
   {
     icon: Receipt,
-    text: 'Facturación Fiscal CFDI 4.0 Institucional en Pesos Mexicanos (MXN)',
-    badge: 'EMPRESARIAL'
+    text: 'Facturación fiscal CFDI 4.0 automática en Pesos Mexicanos (IVA incluido)',
+    badge: 'CFDI 4.0'
   },
   {
     icon: ShieldCheck,
-    text: 'Póliza de Garantía Oficial en Todo el Hardware & Componentes Certificados',
-    badge: 'GARANTÍA'
-  },
-  {
-    icon: Cpu,
-    text: 'Arquitectura de Software con Código Limpio, Alta Velocidad & Seguridad TLS 1.3',
-    badge: 'INGENIERÍA'
+    text: 'Equipos 100% originales con garantía oficial directa de fabricante',
+    badge: 'Garantía'
   },
   {
     icon: Truck,
-    text: 'Despacho Seguro & Cobertura Logística en Toda la República Mexicana',
-    badge: 'COBERTURA'
+    text: 'Envíos asegurados a las 32 entidades de la República con DHL y FedEx',
+    badge: 'Cobertura'
   }
 ];
 
@@ -38,29 +33,30 @@ export const CorporateAnnouncementBar: React.FC = () => {
   const Icon = current.icon;
 
   return (
-    <div className="w-full bg-[#05080E] border-b border-[#1E293B]/80 text-slate-300 text-[11px] font-mono py-2 px-4 relative z-50 select-none overflow-hidden">
-      <div className="max-w-7xl mx-auto flex items-center justify-between">
+    <div className="w-full bg-zinc-950 border-b border-zinc-800/80 text-zinc-300 text-[11px] font-mono py-1.5 px-4 select-none overflow-hidden">
+      <div className="max-w-[1600px] mx-auto flex items-center justify-between">
         
-        {/* Left: Active Rotating Announcement */}
-        <div className="flex items-center gap-3 overflow-hidden">
-          <span className="px-2 py-0.5 rounded text-[9px] font-bold bg-cyan-950 text-cyan-300 border border-cyan-500/40 shrink-0">
+        {/* Left: Active Announcement */}
+        <div className="flex items-center gap-2.5 overflow-hidden">
+          <span className="px-1.5 py-0.5 rounded text-[9px] font-mono font-semibold bg-zinc-800 text-zinc-300 border border-zinc-700/60 shrink-0">
             {current.badge}
           </span>
-          <div className="flex items-center gap-2 transition-all duration-500 transform animate-fadeIn truncate">
-            <Icon className="w-3.5 h-3.5 text-cyan-400 shrink-0" />
-            <span className="truncate text-slate-300 tracking-wide">
+          <div className="flex items-center gap-1.5 transition-all duration-300 truncate">
+            <Icon className="w-3 h-3 text-zinc-400 shrink-0" />
+            <span className="truncate text-zinc-400 text-xs">
               {current.text}
             </span>
           </div>
         </div>
 
-        {/* Right: Currency and Direct Status */}
-        <div className="hidden sm:flex items-center gap-4 shrink-0 text-[10px] text-slate-500">
-          <span className="flex items-center gap-1.5 text-slate-400">
-            <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-            Operaciones Centrales Activas
+        {/* Right: Currency & Immediate Operational Notice */}
+        <div className="hidden sm:flex items-center gap-3 shrink-0 text-[11px] text-zinc-400">
+          <span className="flex items-center gap-1.5 text-zinc-400">
+            <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+            Operaciones directas en México
           </span>
-          <span className="border-l border-[#1E293B] pl-3 text-cyan-400 font-bold">
+          <span className="text-zinc-600">•</span>
+          <span className="text-zinc-300 font-semibold">
             MXN ($)
           </span>
         </div>

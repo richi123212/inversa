@@ -8,7 +8,8 @@ import {
   Layers, 
   ArrowRight,
   CheckCircle2,
-  Building2
+  Building2,
+  FileCheck
 } from 'lucide-react';
 import { ProcessorCircuitAnimation } from './ProcessorCircuitAnimation';
 
@@ -18,36 +19,33 @@ interface AboutInversaSectionProps {
 
 export const AboutInversaSection: React.FC<AboutInversaSectionProps> = ({ onGoToStore }) => {
   return (
-    <div className="min-h-screen bg-[#080C14] py-16 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-[#09090b] text-zinc-100 py-16 px-4 sm:px-6 lg:px-8">
       {/* Hero Banner with Circuit Backdrop */}
-      <div className="max-w-6xl mx-auto relative rounded-3xl bg-[#0F172A] border border-[#1E293B] p-8 sm:p-14 overflow-hidden shadow-2xl mb-12">
-        <div className="absolute inset-0 opacity-20 pointer-events-none flex items-center justify-center">
+      <div className="max-w-6xl mx-auto relative rounded-2xl bg-zinc-900/60 border border-zinc-800 p-8 sm:p-14 overflow-hidden shadow-xl mb-12">
+        <div className="absolute inset-0 opacity-25 pointer-events-none flex items-center justify-center">
           <ProcessorCircuitAnimation className="w-full h-full max-w-5xl" />
         </div>
 
         <div className="relative z-10 max-w-3xl">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-[#080C14] border border-cyan-500/30 text-cyan-400 text-[10px] font-mono tracking-widest uppercase mb-6">
-            <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-ping" />
-            INFORMACIÓN INSTITUCIONAL • INVERSA MÉXICO
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-zinc-800 border border-zinc-700/80 text-zinc-300 text-xs font-mono mb-6">
+            <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
+            <span>Perfil Corporativo • Inversa México</span>
           </div>
 
           <h1 className="text-3xl sm:text-5xl font-black text-white tracking-tight leading-tight">
-            Tecnología en Movimiento &amp;{' '}
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-sky-300 to-blue-400">
-              Arquitectura Híbrida
-            </span>
+            Equipamiento Tecnológico &amp; Arquitectura de Software
           </h1>
 
-          <p className="mt-5 text-sm sm:text-base text-slate-300 leading-relaxed">
-            Inversa es una plataforma tecnológica creada para poner al alcance de todos (desde personas individuales, creadores y negocios independientes hasta empresas consolidadas) hardware físico de alto rendimiento y desarrollo de sitios web profesionales a la medida.
+          <p className="mt-5 text-sm sm:text-base text-zinc-300 leading-relaxed">
+            Inversa es un portal especializado en el suministro de equipamiento tecnológico de alto rendimiento y consultoría en ingeniería web para profesionistas y empresas en México. Garantizamos facturación fiscal CFDI 4.0 inmediata, soporte local y cobertura logística nacional.
           </p>
 
           <div className="mt-8 flex flex-wrap items-center gap-4">
             <button
               onClick={onGoToStore}
-              className="px-6 py-3 rounded-xl bg-gradient-to-r from-cyan-400 to-sky-400 hover:from-cyan-300 hover:to-sky-300 text-slate-950 font-bold text-xs sm:text-sm flex items-center gap-2 shadow-lg shadow-cyan-500/20 transition-all"
+              className="px-6 py-3 rounded-lg bg-zinc-100 hover:bg-white text-zinc-950 font-semibold text-xs sm:text-sm flex items-center gap-2 transition-all shadow-sm"
             >
-              <span>Explorar Tienda &amp; Productos</span>
+              <span>Explorar Catálogo de Hardware</span>
               <ArrowRight className="w-4 h-4" />
             </button>
           </div>
@@ -55,55 +53,55 @@ export const AboutInversaSection: React.FC<AboutInversaSectionProps> = ({ onGoTo
       </div>
 
       {/* 3 Core Pillars */}
-      <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
+      <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-6 mb-16">
         
         {/* Pillar 1 */}
-        <div className="p-8 rounded-2xl bg-[#0F172A]/80 border border-[#1E293B] flex flex-col justify-between">
+        <div className="p-8 rounded-xl bg-zinc-900/50 border border-zinc-800 flex flex-col justify-between">
           <div>
-            <div className="w-12 h-12 rounded-xl bg-cyan-500/10 border border-cyan-500/30 flex items-center justify-center text-cyan-400 mb-6">
-              <Cpu className="w-6 h-6" />
+            <div className="w-10 h-10 rounded-lg bg-zinc-800 border border-zinc-700 flex items-center justify-center text-zinc-200 mb-6">
+              <Cpu className="w-5 h-5 text-sky-400" />
             </div>
-            <h3 className="text-lg font-bold text-white mb-2">Hardware Certificado</h3>
-            <p className="text-xs sm:text-sm text-slate-400 leading-relaxed">
-              Suministro de estaciones de trabajo, componentes GPU de cálculo paralelo, almacenamiento ultrarrápido y periféricos de ingeniería con póliza de garantía oficial y trazabilidad de origen.
+            <h3 className="text-base font-semibold text-white mb-2">Equipamiento Certificado</h3>
+            <p className="text-xs sm:text-sm text-zinc-400 leading-relaxed">
+              Laptops, estaciones de trabajo, componentes GPU de última generación y periféricos de ingeniería con garantía directa de fabricante y trazabilidad oficial de importación.
             </p>
           </div>
-          <div className="mt-6 pt-4 border-t border-[#1E293B] text-xs font-mono text-cyan-400 flex items-center gap-2">
-            <CheckCircle2 className="w-3.5 h-3.5" />
-            <span>100% Original &amp; Facturado</span>
+          <div className="mt-6 pt-4 border-t border-zinc-800 text-xs font-mono text-zinc-300 flex items-center gap-2">
+            <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" />
+            <span>100% Original con Garantía</span>
           </div>
         </div>
 
         {/* Pillar 2 */}
-        <div className="p-8 rounded-2xl bg-[#0F172A]/80 border border-[#1E293B] flex flex-col justify-between">
+        <div className="p-8 rounded-xl bg-zinc-900/50 border border-zinc-800 flex flex-col justify-between">
           <div>
-            <div className="w-12 h-12 rounded-xl bg-blue-500/10 border border-blue-500/30 flex items-center justify-center text-blue-400 mb-6">
-              <Code2 className="w-6 h-6" />
+            <div className="w-10 h-10 rounded-lg bg-zinc-800 border border-zinc-700 flex items-center justify-center text-zinc-200 mb-6">
+              <Code2 className="w-5 h-5 text-blue-400" />
             </div>
-            <h3 className="text-lg font-bold text-white mb-2">Desarrollo Web a Medida</h3>
-            <p className="text-xs sm:text-sm text-slate-400 leading-relaxed">
-              Ingeniería de software para plataformas web de alta conversión: landing pages, portales de catálogo, e-commerce y sistemas SaaS construidos con React, Next.js y TypeScript.
+            <h3 className="text-base font-semibold text-white mb-2">Desarrollo Web &amp; Software</h3>
+            <p className="text-xs sm:text-sm text-zinc-400 leading-relaxed">
+              Ingeniería digital para empresas: landing pages de alta conversión, plataformas transaccionales de e-commerce y aplicaciones SaaS con React, TypeScript y Next.js.
             </p>
           </div>
-          <div className="mt-6 pt-4 border-t border-[#1E293B] text-xs font-mono text-blue-400 flex items-center gap-2">
-            <CheckCircle2 className="w-3.5 h-3.5" />
-            <span>Velocidad &lt; 800ms &amp; SSL TLS 1.3</span>
+          <div className="mt-6 pt-4 border-t border-zinc-800 text-xs font-mono text-zinc-300 flex items-center gap-2">
+            <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" />
+            <span>Código Limpio &amp; Alta Velocidad</span>
           </div>
         </div>
 
         {/* Pillar 3 */}
-        <div className="p-8 rounded-2xl bg-[#0F172A]/80 border border-[#1E293B] flex flex-col justify-between">
+        <div className="p-8 rounded-xl bg-zinc-900/50 border border-zinc-800 flex flex-col justify-between">
           <div>
-            <div className="w-12 h-12 rounded-xl bg-sky-500/10 border border-sky-500/30 flex items-center justify-center text-sky-400 mb-6">
-              <Building2 className="w-6 h-6" />
+            <div className="w-10 h-10 rounded-lg bg-zinc-800 border border-zinc-700 flex items-center justify-center text-zinc-200 mb-6">
+              <Building2 className="w-5 h-5 text-emerald-400" />
             </div>
-            <h3 className="text-lg font-bold text-white mb-2">Atención &amp; Respaldo Total</h3>
-            <p className="text-xs sm:text-sm text-slate-400 leading-relaxed">
-              Atención cercana para personas, profesionistas independientes y empresas en México. Cotizaciones claras con desglose de IVA, folios oficiales y emisión de factura fiscal CFDI 4.0 cuando la necesites.
+            <h3 className="text-base font-semibold text-white mb-2">Respaldo Fiscal y Logístico</h3>
+            <p className="text-xs sm:text-sm text-zinc-400 leading-relaxed">
+              Todos los precios exhibidos en Inversa incluyen IVA. Emitimos facturación fiscal CFDI 4.0 automática para personas morales y físicas, con envíos asegurados a todo México.
             </p>
           </div>
-          <div className="mt-6 pt-4 border-t border-[#1E293B] text-xs font-mono text-sky-400 flex items-center gap-2">
-            <CheckCircle2 className="w-3.5 h-3.5" />
+          <div className="mt-6 pt-4 border-t border-zinc-800 text-xs font-mono text-zinc-300 flex items-center gap-2">
+            <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" />
             <span>CFDI 4.0 en Pesos Mexicanos (MXN)</span>
           </div>
         </div>
@@ -111,33 +109,33 @@ export const AboutInversaSection: React.FC<AboutInversaSectionProps> = ({ onGoTo
       </div>
 
       {/* Operational Highlights */}
-      <div className="max-w-6xl mx-auto rounded-2xl bg-[#0B101E] border border-[#1E293B] p-8 sm:p-10">
-        <h3 className="text-base font-bold text-white mb-6 uppercase tracking-wider font-mono text-cyan-400">
-          Infraestructura &amp; Compromiso Operativo
+      <div className="max-w-6xl mx-auto rounded-xl bg-zinc-900/40 border border-zinc-800 p-8 sm:p-10">
+        <h3 className="text-sm font-semibold text-white mb-6 font-mono uppercase tracking-wider text-zinc-300">
+          Compromiso Operativo para Clientes B2B
         </h3>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          <div className="p-4 rounded-xl bg-[#080C14] border border-[#1E293B]">
-            <ShieldCheck className="w-5 h-5 text-cyan-400 mb-2" />
-            <h4 className="text-sm font-bold text-white">Garantía Total</h4>
-            <p className="text-xs text-slate-400 mt-1">Póliza directa en hardware y 30 días de garantía post-lanzamiento en código web.</p>
+          <div className="p-4 rounded-lg bg-zinc-950/70 border border-zinc-800">
+            <ShieldCheck className="w-5 h-5 text-emerald-400 mb-2" />
+            <h4 className="text-sm font-semibold text-white">Garantía Directa</h4>
+            <p className="text-xs text-zinc-400 mt-1">Póliza oficial en hardware y 30 días de garantía técnica posterior a la entrega en proyectos web.</p>
           </div>
 
-          <div className="p-4 rounded-xl bg-[#080C14] border border-[#1E293B]">
-            <Truck className="w-5 h-5 text-blue-400 mb-2" />
-            <h4 className="text-sm font-bold text-white">Despacho Nacional</h4>
-            <p className="text-xs text-slate-400 mt-1">Envíos asegurados a cualquier entidad federativa con rastreo en tiempo real.</p>
+          <div className="p-4 rounded-lg bg-zinc-950/70 border border-zinc-800">
+            <Truck className="w-5 h-5 text-zinc-200 mb-2" />
+            <h4 className="text-sm font-semibold text-white">Logística Asegurada</h4>
+            <p className="text-xs text-zinc-400 mt-1">Despacho con rastreo activo vía DHL Express y FedEx a las 32 entidades federativas del país.</p>
           </div>
 
-          <div className="p-4 rounded-xl bg-[#080C14] border border-[#1E293B]">
-            <Terminal className="w-5 h-5 text-cyan-400 mb-2" />
-            <h4 className="text-sm font-bold text-white">Código de Producción</h4>
-            <p className="text-xs text-slate-400 mt-1">Arquitectura mantenible sin dependencias innecesarias, testeada para alta escalabilidad.</p>
+          <div className="p-4 rounded-lg bg-zinc-950/70 border border-zinc-800">
+            <FileCheck className="w-5 h-5 text-sky-400 mb-2" />
+            <h4 className="text-sm font-semibold text-white">Factura CFDI 4.0</h4>
+            <p className="text-xs text-zinc-400 mt-1">Cumplimiento total con disposiciones fiscales del SAT. Precios transparentes con IVA incluido.</p>
           </div>
 
-          <div className="p-4 rounded-xl bg-[#080C14] border border-[#1E293B]">
-            <Layers className="w-5 h-5 text-sky-400 mb-2" />
-            <h4 className="text-sm font-bold text-white">Cotizador Abierto</h4>
-            <p className="text-xs text-slate-400 mt-1">Cálculo transparente de costos sin intermediarios ni cargos ocultos.</p>
+          <div className="p-4 rounded-lg bg-zinc-950/70 border border-zinc-800">
+            <Layers className="w-5 h-5 text-blue-400 mb-2" />
+            <h4 className="text-sm font-semibold text-white">Cotizador Abierto</h4>
+            <p className="text-xs text-zinc-400 mt-1">Cálculo transparente de costos sin intermediarios ni cobros imprevistos.</p>
           </div>
         </div>
       </div>

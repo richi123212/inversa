@@ -2,15 +2,15 @@ import React, { useState, useEffect } from 'react';
 import { 
   X, 
   ShoppingBag, 
-  Layers, 
-  ExternalLink, 
-  Check, 
   ShieldCheck, 
   Truck, 
   Clock,
   Plus,
   Minus,
-  FileText
+  FileText,
+  Check,
+  CheckCircle2,
+  ExternalLink
 } from 'lucide-react';
 import { Producto } from '../types';
 import { useCart } from '../context/CartContext';
@@ -61,30 +61,30 @@ export const ProductDetailModal: React.FC<ProductDetailModalProps> = ({ producto
   return (
     <div 
       onClick={onClose}
-      className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 overflow-y-auto bg-black/85 backdrop-blur-md"
+      className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 overflow-y-auto bg-black/80 backdrop-blur-sm"
     >
       <div 
         onClick={(e) => e.stopPropagation()}
-        className="relative w-full max-w-4xl bg-[#0F172A] border border-[#1E293B] rounded-2xl shadow-2xl overflow-hidden z-10 max-h-[90vh] flex flex-col md:flex-row"
+        className="relative w-full max-w-4xl bg-zinc-900 border border-zinc-800 rounded-2xl shadow-2xl overflow-hidden z-10 max-h-[90vh] flex flex-col md:flex-row"
       >
         
-        {/* Close Button con posición fija y alto contraste */}
+        {/* Close Button */}
         <button
           type="button"
           onClick={(e) => {
             e.stopPropagation();
             onClose();
           }}
-          className="absolute top-4 right-4 z-30 p-2.5 rounded-xl bg-[#080C14]/90 hover:bg-white/10 border border-white/15 text-slate-300 hover:text-white transition-all shadow-xl"
+          className="absolute top-4 right-4 z-30 p-2 rounded-lg bg-zinc-800/80 hover:bg-zinc-700 border border-zinc-700/80 text-zinc-300 hover:text-white transition-colors"
           title="Cerrar ventana (Esc)"
+          aria-label="Cerrar"
         >
-          <X className="w-5 h-5" />
+          <X className="w-4 h-4" />
         </button>
 
-        {/* Left Side: Image Gallery con Zoom Interactivo */}
-        <div className="w-full md:w-1/2 p-6 flex flex-col justify-between bg-[#080C14]/80 border-b md:border-b-0 md:border-r border-[#1E293B]">
-          {/* Main Image with Zoom Lightbox */}
-          <div className="relative aspect-square w-full">
+        {/* Left: Gallery & Zoom */}
+        <div className="w-full md:w-1/2 p-6 flex flex-col justify-between bg-zinc-950/60 border-b md:border-b-0 md:border-r border-zinc-800">
+          <div className="relative aspect-square w-full flex items-center justify-center">
             <ImageWithZoom
               src={currentImage}
               alt={producto.titulo}
@@ -93,26 +93,20 @@ export const ProductDetailModal: React.FC<ProductDetailModalProps> = ({ producto
               onIndexChange={setSelectedImageIndex}
               className="w-full h-full"
             />
-
-            {producto.precioOferta && (
-              <span className="absolute top-3 left-3 px-2.5 py-1 rounded-md text-[10px] font-mono font-bold bg-cyan-950/90 text-cyan-300 border border-cyan-500/30 shadow-md pointer-events-none z-10">
-                PRECIO PREFERENCIAL
-              </span>
-            )}
           </div>
 
           {/* Thumbnails */}
           {producto.imagenes.length > 1 && (
-            <div className="flex items-center gap-2.5 mt-4 overflow-x-auto pb-1">
+            <div className="flex items-center gap-2 mt-4 overflow-x-auto pb-1">
               {producto.imagenes.map((img, idx) => (
                 <button
                   key={idx}
                   type="button"
                   onClick={() => setSelectedImageIndex(idx)}
-                  className={`relative w-16 h-16 rounded-lg overflow-hidden border-2 shrink-0 transition-all ${
+                  className={`relative w-14 h-14 rounded-lg overflow-hidden border shrink-0 transition-all ${
                     selectedImageIndex === idx
-                      ? 'border-cyan-400 scale-105 shadow-md shadow-cyan-500/20 ring-1 ring-cyan-400/40'
-                      : 'border-white/10 opacity-50 hover:opacity-100 hover:border-white/30'
+                      ? 'border-white ring-1 ring-white/50 opacity-100'
+                      : 'border-zinc-800 opacity-60 hover:opacity-100'
                   }`}
                 >
                   <img src={img} alt={`${producto.titulo} vista ${idx + 1}`} className="w-full h-full object-cover" />
@@ -121,85 +115,88 @@ export const ProductDetailModal: React.FC<ProductDetailModalProps> = ({ producto
             </div>
           )}
 
-          {/* Corporate Guarantee info */}
-          <div className="mt-4 pt-4 border-t border-[#1E293B] flex items-center justify-between text-xs text-slate-300 font-mono">
+          {/* Guarantee Badges */}
+          <div className="mt-4 pt-4 border-t border-zinc-800 flex items-center justify-between text-xs text-zinc-400 font-mono">
             <span className="flex items-center gap-1.5">
-              <ShieldCheck className="w-4 h-4 text-cyan-400" />
-              <span>Garantía Oficial Inversa</span>
+              <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" />
+              <span>Garantía Oficial de Fabricante</span>
             </span>
             <span className="flex items-center gap-1.5">
-              <Truck className="w-4 h-4 text-blue-400" />
-              <span>Envío Asegurado Nacional</span>
+              <Truck className="w-3.5 h-3.5 text-zinc-300" />
+              <span>Envío Asegurado DHL / FedEx</span>
             </span>
           </div>
         </div>
 
-        {/* Right Side: Product Details & Specs */}
+        {/* Right: Product Details & Specs */}
         <div className="w-full md:w-1/2 p-6 md:p-8 flex flex-col justify-between overflow-y-auto">
           <div>
-            {/* Header Container protegido con padding-right generoso para evitar colisiones con la X */}
-            <div className="pr-14 sm:pr-16 mb-2">
-              {/* Categoría destacada en su propio contenedor sin el texto 'Hardware' redundante */}
-              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg text-xs font-mono font-semibold uppercase tracking-wider bg-cyan-500/10 text-cyan-300 border border-cyan-500/30 shadow-xs mb-3 break-words max-w-full">
-                <Layers className="w-3.5 h-3.5 text-cyan-400 shrink-0" />
-                <span className="break-words">{producto.categoriaNombre}</span>
-              </div>
+            <div className="pr-10 mb-2">
+              <span className="inline-block text-[11px] font-mono font-medium uppercase tracking-wider text-zinc-400 mb-2">
+                {producto.categoriaNombre}
+              </span>
 
-              <h2 className="text-xl sm:text-2xl font-bold text-white leading-snug break-words">
+              <h2 className="text-xl sm:text-2xl font-bold text-white leading-snug">
                 {producto.titulo}
               </h2>
             </div>
 
-            {/* Price section in MXN */}
-            <div className="mt-4 flex items-baseline gap-2.5">
-              <span className="text-2xl sm:text-3xl font-black text-white font-mono">
-                ${formatPrice(currentPrice)}
-              </span>
-              <span className="text-xs text-cyan-400 font-mono font-bold">MXN</span>
-              {producto.precioOferta && (
-                <span className="text-xs text-slate-500 line-through font-mono ml-2">
-                  ${formatPrice(producto.precio)} MXN
+            {/* Price with explicit IVA incluido */}
+            <div className="mt-4">
+              <div className="flex items-baseline gap-2">
+                <span className="text-2xl sm:text-3xl font-bold text-white tracking-tight">
+                  ${formatPrice(currentPrice)}
                 </span>
-              )}
+                <span className="text-xs font-semibold text-zinc-400">MXN</span>
+                {producto.precioOferta && (
+                  <span className="text-xs text-zinc-500 line-through ml-2">
+                    ${formatPrice(producto.precio)} MXN
+                  </span>
+                )}
+              </div>
+              <div className="flex items-center gap-2 mt-1">
+                <span className="text-xs text-zinc-400 font-medium">IVA incluido (Factura CFDI 4.0 inmediata)</span>
+              </div>
             </div>
 
-            {/* Stock status */}
-            <div className="mt-2">
+            {/* Stock status - subtle, non-alarmist */}
+            <div className="mt-3">
               {isHardware ? (
                 isOutOfStock ? (
-                  <span className="text-xs font-semibold text-red-400 bg-red-950/40 border border-red-500/20 px-2 py-0.5 rounded inline-block font-mono">
-                    Inventario agotado
+                  <span className="text-xs text-zinc-500 bg-zinc-800/60 border border-zinc-800 px-2.5 py-1 rounded inline-block font-mono">
+                    Agotado temporalmente en almacén
                   </span>
                 ) : (
-                  <span className="text-xs font-semibold text-emerald-400 bg-emerald-950/40 border border-emerald-500/20 px-2 py-0.5 rounded inline-block font-mono">
-                    {producto.stock} piezas disponibles en almacén central
+                  <span className="text-xs text-zinc-300 bg-zinc-800/60 border border-zinc-800 px-2.5 py-1 rounded inline-flex items-center gap-1.5 font-mono">
+                    <CheckCircle2 className="w-3 h-3 text-emerald-400" />
+                    {producto.stock} unidades disponibles para envío inmediato
                   </span>
                 )
               ) : (
-                <span className="text-xs font-semibold text-blue-400 bg-blue-950/40 border border-blue-500/20 px-2 py-0.5 rounded inline-flex items-center gap-1 font-mono">
-                  <Clock className="w-3.5 h-3.5" />
-                  Disponibilidad inmediata para contratación
+                <span className="text-xs text-zinc-300 bg-zinc-800/60 border border-zinc-800 px-2.5 py-1 rounded inline-flex items-center gap-1.5 font-mono">
+                  <Clock className="w-3 h-3 text-zinc-400" />
+                  Disponibilidad inmediata para contratación de proyecto
                 </span>
               )}
             </div>
 
             {/* Description */}
-            <p className="text-xs sm:text-sm text-slate-300 mt-4 leading-relaxed">
+            <p className="text-xs sm:text-sm text-zinc-300 mt-4 leading-relaxed">
               {producto.descripcion}
             </p>
 
-            {/* Specs / Ficha Técnica */}
+            {/* Technical Specifications Table */}
             <div className="mt-6">
-              <h4 className="text-xs font-mono font-bold uppercase tracking-wider text-slate-300 mb-3 flex items-center gap-1.5">
-                <FileText className="w-4 h-4 text-cyan-400" />
+              <h4 className="text-xs font-mono font-semibold uppercase tracking-wider text-zinc-300 mb-3 flex items-center gap-1.5">
+                <FileText className="w-3.5 h-3.5 text-zinc-400" />
                 {isHardware ? 'Especificaciones Técnicas' : 'Alcance del Desarrollo'}
               </h4>
 
-              <div className="rounded-xl border border-[#1E293B] bg-[#080C14]/60 overflow-hidden divide-y divide-[#1E293B]">
+              <div className="rounded-xl border border-zinc-800 bg-zinc-950/60 overflow-hidden divide-y divide-zinc-800">
                 {Object.entries(producto.specs).map(([key, val]) => (
                   <div key={key} className="grid grid-cols-3 p-2.5 text-xs">
-                    <span className="font-semibold text-slate-400 col-span-1">{key}</span>
-                    <span className="text-white col-span-2 font-mono text-[11px]">{val}</span>
+                    <span className="font-medium text-zinc-400 col-span-1">{key}</span>
+                    <span className="text-zinc-200 col-span-2 font-mono text-[11px]">{val}</span>
                   </div>
                 ))}
               </div>
@@ -207,36 +204,40 @@ export const ProductDetailModal: React.FC<ProductDetailModalProps> = ({ producto
 
             {/* Live Demo link for Web Services */}
             {!isHardware && producto.demoUrl && (
-              <div className="mt-5">
+              <div className="mt-4">
                 <a
                   href={producto.demoUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-full py-2.5 px-4 rounded-xl bg-blue-600/10 hover:bg-blue-600/20 border border-blue-500/30 text-blue-400 text-xs font-semibold flex items-center justify-center gap-2 transition-all"
+                  className="w-full py-2 px-3 rounded-lg bg-zinc-800 hover:bg-zinc-700 border border-zinc-700 text-zinc-200 text-xs font-medium flex items-center justify-center gap-1.5 transition-colors"
                 >
-                  <ExternalLink className="w-4 h-4" />
-                  Consultar Demostración de Proyecto
+                  <ExternalLink className="w-3.5 h-3.5" />
+                  <span>Ver demostración en vivo</span>
                 </a>
               </div>
             )}
           </div>
 
           {/* Quantity and Add to Cart Section */}
-          <div className="mt-8 pt-5 border-t border-[#1E293B] flex flex-col sm:flex-row items-center gap-3">
+          <div className="mt-6 pt-5 border-t border-zinc-800 flex flex-col sm:flex-row items-center gap-3">
             {!isOutOfStock && (
-              <div className="flex items-center border border-[#1E293B] bg-[#080C14] rounded-xl p-1">
+              <div className="flex items-center border border-zinc-800 bg-zinc-950 rounded-lg p-1">
                 <button
+                  type="button"
                   onClick={() => setQuantity((q) => Math.max(1, q - 1))}
-                  className="p-2 text-slate-400 hover:text-white rounded-lg transition-colors"
+                  className="p-1.5 text-zinc-400 hover:text-white rounded transition-colors"
+                  aria-label="Disminuir cantidad"
                 >
                   <Minus className="w-3.5 h-3.5" />
                 </button>
-                <span className="w-10 text-center font-mono font-bold text-sm text-white">
+                <span className="w-8 text-center font-mono font-semibold text-xs text-white">
                   {quantity}
                 </span>
                 <button
+                  type="button"
                   onClick={() => setQuantity((q) => Math.min(maxStock, q + 1))}
-                  className="p-2 text-slate-400 hover:text-white rounded-lg transition-colors"
+                  className="p-1.5 text-zinc-400 hover:text-white rounded transition-colors"
+                  aria-label="Aumentar cantidad"
                 >
                   <Plus className="w-3.5 h-3.5" />
                 </button>
@@ -244,20 +245,21 @@ export const ProductDetailModal: React.FC<ProductDetailModalProps> = ({ producto
             )}
 
             <button
+              type="button"
               onClick={handleAddToCart}
               disabled={isOutOfStock}
-              className={`flex-1 w-full py-3.5 px-6 rounded-xl text-xs sm:text-sm font-bold flex items-center justify-center gap-2 transition-all duration-300 whitespace-nowrap shadow-lg ${
+              className={`flex-1 w-full py-2.5 px-4 rounded-lg text-xs sm:text-sm font-semibold flex items-center justify-center gap-2 transition-all ${
                 isOutOfStock
-                  ? 'bg-slate-800 text-slate-500 cursor-not-allowed border border-slate-700'
+                  ? 'bg-zinc-800/40 text-zinc-500 cursor-not-allowed border border-zinc-800'
                   : addedSuccess
-                  ? 'bg-emerald-600 text-white shadow-emerald-600/30'
-                  : 'bg-gradient-to-r from-cyan-400 to-sky-400 hover:from-cyan-300 hover:to-sky-300 text-slate-950 font-black shadow-cyan-500/25'
+                  ? 'bg-emerald-600 text-white'
+                  : 'bg-zinc-100 hover:bg-white text-zinc-950 shadow-xs'
               }`}
             >
               {addedSuccess ? (
                 <>
                   <Check className="w-4 h-4" />
-                  <span>Agregado a tu Pedido</span>
+                  <span>Agregado al Pedido</span>
                 </>
               ) : (
                 <>

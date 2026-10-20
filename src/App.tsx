@@ -14,16 +14,21 @@ import { AboutInversaSection } from './components/AboutInversaSection';
 import { ContactSection } from './components/ContactSection';
 import { InversaChatbot } from './components/InversaChatbot';
 
+import { CorporateAnnouncementBar } from './components/CorporateAnnouncementBar';
+
 const MainLayout: React.FC = () => {
   const [currentView, setCurrentView] = useState<'tienda' | 'sobre_inversa' | 'contacto'>('tienda');
   const [activeTab, setActiveTab] = useState<'hardware' | 'crea_tu_web'>('hardware');
   const [searchQuery, setSearchQuery] = useState('');
 
   return (
-    <div className="flex flex-col min-h-screen bg-[#080C14]">
+    <div className="flex flex-col min-h-screen bg-[#09090b] text-zinc-100 font-sans selection:bg-zinc-700 selection:text-white">
+      <CorporateAnnouncementBar />
       <Navbar
         currentView={currentView}
         setCurrentView={setCurrentView}
+        activeTab={activeTab}
+        setActiveTab={setActiveTab}
         searchQuery={searchQuery}
         setSearchQuery={setSearchQuery}
       />

@@ -111,8 +111,8 @@ export const ProcessorCircuitAnimation: React.FC<{ className?: string }> = ({ cl
           </circle>
 
           {/* Frequency & Status text */}
-          <text x="600" y="215" textAnchor="middle" fill="#64748B" fontSize="8" fontFamily="monospace" letterSpacing="2">
-            INVERSA CORE ARCHITECTURE
+          <text x="600" y="215" textAnchor="middle" fill="#64748B" fontSize="8" fontFamily="system-ui, sans-serif" letterSpacing="1.2">
+            Inversa Enterprise Architecture
           </text>
         </g>
 

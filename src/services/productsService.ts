@@ -14,15 +14,15 @@ import { db, storage, isFirebaseConfigured } from '../lib/firebase';
 import { Producto, Categoria } from '../types';
 
 export const INITIAL_CATEGORIAS: Categoria[] = [
-  { id: 'cat-laptops', nombre: 'Workstations & Cómputo Móvil', tipo: 'hardware', slug: 'workstations' },
-  { id: 'cat-audio', nombre: 'Acústica & Cancelación Activa', tipo: 'hardware', slug: 'audio' },
-  { id: 'cat-perifericos', nombre: 'Periféricos de Precisión', tipo: 'hardware', slug: 'perifericos' },
-  { id: 'cat-componentes', nombre: 'Unidades de Procesamiento Gráfico', tipo: 'hardware', slug: 'componentes' },
-  { id: 'cat-monitores', nombre: 'Displays de Grado Profesional', tipo: 'hardware', slug: 'monitores' },
-  { id: 'cat-landing', nombre: 'Arquitectura Web & Conversión', tipo: 'servicio_web', slug: 'landing-pages' },
-  { id: 'cat-ecommerce', nombre: 'Plataformas Transaccionales E-Commerce', tipo: 'servicio_web', slug: 'ecommerce' },
-  { id: 'cat-saas', nombre: 'SaaS Empresarial & Dashboards', tipo: 'servicio_web', slug: 'saas' },
-  { id: 'cat-corporativo', nombre: 'Portales Corporativos', tipo: 'servicio_web', slug: 'corporativo' }
+  { id: 'cat-laptops', nombre: 'Laptops & Workstations', tipo: 'hardware', slug: 'laptops-workstations' },
+  { id: 'cat-componentes', nombre: 'Tarjetas Gráficas (GPUs)', tipo: 'hardware', slug: 'tarjetas-graficas' },
+  { id: 'cat-audio', nombre: 'Audio Profesional', tipo: 'hardware', slug: 'audio-profesional' },
+  { id: 'cat-monitores', nombre: 'Monitores & Pantallas', tipo: 'hardware', slug: 'monitores-pantallas' },
+  { id: 'cat-perifericos', nombre: 'Periféricos & Teclados', tipo: 'hardware', slug: 'perifericos-teclados' },
+  { id: 'cat-landing', nombre: 'Landing Pages Corporativas', tipo: 'servicio_web', slug: 'landing-pages' },
+  { id: 'cat-ecommerce', nombre: 'Comercio Electrónico (E-Commerce)', tipo: 'servicio_web', slug: 'ecommerce' },
+  { id: 'cat-saas', nombre: 'SaaS & Dashboards Empresariales', tipo: 'servicio_web', slug: 'saas' },
+  { id: 'cat-corporativo', nombre: 'Portales Web Institucionales', tipo: 'servicio_web', slug: 'corporativo' }
 ];
 
 export const INITIAL_PRODUCTOS: Producto[] = [
@@ -30,9 +30,9 @@ export const INITIAL_PRODUCTOS: Producto[] = [
     id: 'prod-macbook-m3',
     titulo: 'MacBook Pro 16" Apple M3 Max',
     slug: 'macbook-pro-16-m3-max',
-    descripcion: 'Estación de trabajo de grado profesional para desarrollo intensivo, arquitectura de software y renderizado de alta fidelidad.',
+    descripcion: 'Laptop para desarrollo de software intensivo, modelado 3D, análisis de datos y edición de video en alta resolución.',
     categoriaId: 'cat-laptops',
-    categoriaNombre: 'Workstations & Cómputo Móvil',
+    categoriaNombre: 'Laptops & Workstations',
     tipo: 'hardware',
     precio: 59999,
     precioOferta: 54999,
@@ -43,22 +43,46 @@ export const INITIAL_PRODUCTOS: Producto[] = [
     ],
     stock: 4,
     specs: {
-      'Procesador': 'Apple M3 Max (16 núcleos CPU, 40 núcleos GPU)',
-      'Memoria Unificada': '36 GB RAM de alta velocidad',
-      'Almacenamiento': '1 TB SSD Ultrarrápido PCIe',
-      'Display': '16.2" Liquid Retina XDR 120Hz ProMotion',
-      'Póliza de Garantía': '1 Año Apple Care Oficial'
+      'Chipset': 'Apple M3 Max (CPU 16 núcleos, GPU 40 núcleos)',
+      'RAM': '36 GB memoria unificada LPDDR5',
+      'Almacenamiento': '1 TB SSD PCIe de alta velocidad',
+      'Pantalla': '16.2" Liquid Retina XDR (3456 x 2234) a 120Hz',
+      'Garantía Oficial': '1 año con Apple México (factura con IVA)'
+    },
+    destacado: true,
+    activo: true
+  },
+  {
+    id: 'prod-rtx-4080',
+    titulo: 'ASUS ROG Strix GeForce RTX 4080 Super OC',
+    slug: 'asus-rog-strix-rtx-4080-super-oc',
+    descripcion: 'Tarjeta gráfica de alto desempeño para estaciones de trabajo, inferencia de inteligencia artificial y renderizado por GPU.',
+    categoriaId: 'cat-componentes',
+    categoriaNombre: 'Tarjetas Gráficas (GPUs)',
+    tipo: 'hardware',
+    precio: 24999,
+    precioOferta: 22899,
+    imagenes: [
+      'https://images.unsplash.com/photo-1587202372775-e229f172b9d7?auto=format&fit=crop&w=1000&q=80'
+    ],
+    stock: 0,
+    specs: {
+      'VRAM': '16 GB GDDR6X (Bus de 256 bits a 23 Gbps)',
+      'Núcleos CUDA': '10,240 núcleos y Tensor Cores 4ª Gen',
+      'Frecuencia': '2670 MHz Boost en Modo OC',
+      'Puertos': '2x HDMI 2.1a, 3x DisplayPort 1.4a',
+      'Garantía Oficial': '3 años de garantía directa con ASUS México'
     },
     destacado: true,
     activo: true
   },
   {
     id: 'prod-sony-xm5',
-    titulo: 'Sony WH-1000XM5 Noise Cancelling',
-    slug: 'sony-wh1000xm5-noise-cancelling',
-    descripcion: 'Aislamiento acústico de referencia industrial con procesadores duales para entornos de ingeniería y análisis concentrado.',
+    titulo: 'Sony WH-1000XM5 Cancelación de Ruido',
+    slug: 'sony-wh1000xm5-cancelacion-ruido',
+    descripcion: 'Audífonos inalámbricos profesionales con cancelación activa de ruido adaptativa, 8 micrófonos para llamadas nítidas y batería de larga duración.',
     categoriaId: 'cat-audio',
-    categoriaNombre: 'Acústica & Cancelación Activa',
+    categoriaNombre: 'Audio Profesional',
     tipo: 'hardware',
     precio: 7899,
     precioOferta: 6799,
@@ -68,70 +92,22 @@ export const INITIAL_PRODUCTOS: Producto[] = [
     ],
     stock: 8,
     specs: {
-      'Procesamiento': 'Procesador QN1 y Coprocesador V1 dedicados',
-      'Autonomía': 'Hasta 30 horas continuas',
-      'Carga Rápida': '3 minutos de carga equivalen a 3 horas de uso',
-      'Formatos de Audio': 'LDAC, AAC, SBC (Hi-Res Audio Wireless)',
-      'Póliza de Garantía': '12 Meses con Centro de Servicio'
-    },
-    destacado: true,
-    activo: true
-  },
-  {
-    id: 'prod-keychron-q1',
-    titulo: 'Keychron Q1 Pro Custom QMK/VIA',
-    slug: 'keychron-q1-pro-custom-qmk-via',
-    descripcion: 'Teclado mecánico para programadores con chasis de aluminio CNC grado aeronáutico, montura de doble junta y firmware de código abierto.',
-    categoriaId: 'cat-perifericos',
-    categoriaNombre: 'Periféricos de Precisión',
-    tipo: 'hardware',
-    precio: 4499,
-    imagenes: [
-      'https://images.unsplash.com/photo-1587829741301-dc798b83add3?auto=format&fit=crop&w=1000&q=80',
-      'https://images.unsplash.com/photo-1595225476474-87563907a212?auto=format&fit=crop&w=1000&q=80'
-    ],
-    stock: 2,
-    specs: {
-      'Interruptores': 'Keychron K Pro Red Lubricados en Fábrica',
-      'Construcción': 'Aluminio 6063 Mecanizado CNC con Double Gasket',
-      'Conectividad': 'Bluetooth 5.1 & USB Tipo C Trenzado',
-      'Programación': 'Mapeo completo en tiempo real vía QMK / VIA',
-      'Keycaps': 'PBT Doble Inyección Perfil KSA'
-    },
-    destacado: false,
-    activo: true
-  },
-  {
-    id: 'prod-rtx-4080',
-    titulo: 'ASUS ROG Strix GeForce RTX 4080 Super OC',
-    slug: 'asus-rog-strix-rtx-4080-super-oc',
-    descripcion: 'Potencia de cálculo paralelo con microarquitectura Ada Lovelace para procesamiento de inteligencia artificial, computación gráfica y renderizado.',
-    categoriaId: 'cat-componentes',
-    categoriaNombre: 'Unidades de Procesamiento Gráfico',
-    tipo: 'hardware',
-    precio: 24999,
-    precioOferta: 22899,
-    imagenes: [
-      'https://images.unsplash.com/photo-1587202372775-e229f172b9d7?auto=format&fit=crop&w=1000&q=80'
-    ],
-    stock: 0,
-    specs: {
-      'Memoria de Video': '16 GB GDDR6X (Bus de 256 bits)',
-      'Núcleos de IA': 'Tensor Cores de 4ª Generación & DLSS 3.5',
-      'Frecuencia Boost': '2670 MHz (Modo Rendimiento)',
-      'Disipación Térmica': 'Cámara de vapor patentada y ventiladores axiales',
-      'Póliza de Garantía': '3 Años Oficial ASUS'
+      'Chipset de Audio': 'Procesador integrado V1 + procesador HD QN1',
+      'Batería': 'Hasta 30 horas con carga rápida (3 min = 3 h)',
+      'Conectividad': 'Bluetooth 5.2 multipunto y conector 3.5mm',
+      'Códecs': 'LDAC, AAC y SBC compatibles con Hi-Res Audio',
+      'Garantía Oficial': '1 año con centros autorizados Sony México'
     },
     destacado: true,
     activo: true
   },
   {
     id: 'prod-mon-lg-34',
-    titulo: 'LG 34" UltraWide QHD IPS Ergo Curved',
-    slug: 'lg-34-ultrawide-qhd-ips-ergo-curved',
-    descripcion: 'Espacio de trabajo panorámico formato 21:9 para multipantalla sin bordes, puerto USB-C con suministro de energía de 60W y brazo ergonómico.',
+    titulo: 'LG UltraWide 34" QHD IPS con Brazo Ergonómico',
+    slug: 'lg-ultrawide-34-qhd-ips-brazo-ergo',
+    descripcion: 'Monitor panorámico de 34 pulgadas formato 21:9 para productividad multidispositivo, con concentrador USB-C de 60W y brazo articulado incluido.',
     categoriaId: 'cat-monitores',
-    categoriaNombre: 'Displays de Grado Profesional',
+    categoriaNombre: 'Monitores & Pantallas',
     tipo: 'hardware',
     precio: 11899,
     precioOferta: 10499,
@@ -140,11 +116,35 @@ export const INITIAL_PRODUCTOS: Producto[] = [
     ],
     stock: 5,
     specs: {
-      'Resolución': '3440 x 1440 UltraWide Quad HD',
-      'Panel': 'IPS con 99% sRGB y calibración de color de fábrica',
-      'Conectividad': 'USB-C (Power Delivery 60W), DisplayPort, HDMI x2',
-      'Soporte': 'Brazo Ergo de fijación C-Clamp con rotación 360°',
-      'Póliza de Garantía': '2 Años con Fabricante'
+      'Resolución': '3440 x 1440 UltraWide QHD (Relación 21:9)',
+      'Panel': 'IPS con cobertura sRGB 99% y calibración de fábrica',
+      'Puertos': 'USB-C con Power Delivery 60W, 2x HDMI, DisplayPort',
+      'Soporte': 'Brazo Ergo articulado con sujeción C-Clamp de escritorio',
+      'Garantía Oficial': '2 años de respaldo oficial LG México'
+    },
+    destacado: false,
+    activo: true
+  },
+  {
+    id: 'prod-keychron-q1',
+    titulo: 'Keychron Q1 Pro Mecánico Custom QMK/VIA',
+    slug: 'keychron-q1-pro-mecanico-custom',
+    descripcion: 'Teclado mecánico inalámbrico en formato 75% con chasis de aluminio CNC, montura gasket amortiguada y reasignación de teclas en tiempo real.',
+    categoriaId: 'cat-perifericos',
+    categoriaNombre: 'Periféricos & Teclados',
+    tipo: 'hardware',
+    precio: 4499,
+    imagenes: [
+      'https://images.unsplash.com/photo-1587829741301-dc798b83add3?auto=format&fit=crop&w=1000&q=80',
+      'https://images.unsplash.com/photo-1595225476474-87563907a212?auto=format&fit=crop&w=1000&q=80'
+    ],
+    stock: 2,
+    specs: {
+      'Interruptores': 'Switches Keychron K Pro Red pre-lubricados (Hot-swap)',
+      'Chasis': 'Aluminio 6063 mecanizado por CNC con doble junta',
+      'Conectividad': 'Bluetooth 5.1 y cable USB-C trenzado de baja latencia',
+      'Compatibilidad': 'Soporte nativo para macOS, Windows y Linux',
+      'Garantía Oficial': '1 año de garantía directa con distribuidor'
     },
     destacado: false,
     activo: true
@@ -152,11 +152,11 @@ export const INITIAL_PRODUCTOS: Producto[] = [
   // SERVICIOS WEB & SOFTWARE
   {
     id: 'serv-landing-page',
-    titulo: 'Arquitectura Web: Landing Page Corporativa',
-    slug: 'arquitectura-web-landing-page-corporativa',
-    descripcion: 'Plataforma web de alto rendimiento optimizada para indexación SEO y captura ejecutiva de prospectos. Carga menor a 800 milisegundos.',
+    titulo: 'Landing Page Corporativa de Alta Conversión',
+    slug: 'landing-page-corporativa-alta-conversion',
+    descripcion: 'Desarrollo web enfocado en captación de prospectos B2B, con diseño responsivo, carga en menos de 1 segundo y analítica integrada.',
     categoriaId: 'cat-landing',
-    categoriaNombre: 'Arquitectura Web & Conversión',
+    categoriaNombre: 'Landing Pages Corporativas',
     tipo: 'servicio_web',
     precio: 6900,
     precioOferta: 5800,
@@ -166,11 +166,11 @@ export const INITIAL_PRODUCTOS: Producto[] = [
     ],
     stock: 999,
     specs: {
-      'Plazo de Entrega': '4 a 6 días hábiles',
-      'Tecnologías': 'React 18 / Next.js + TypeScript + Tailwind CSS',
-      'Infraestructura': 'Despliegue perimetral con certificado SSL empresarial',
-      'Analítica': 'Integración de eventos con Google Tag Manager y GA4',
-      'Soporte Técnico': '30 días de acompañamiento post-lanzamiento'
+      'Tiempo de Entrega': '4 a 6 días hábiles con revisiones incluidas',
+      'Tecnologías': 'React, Next.js, TypeScript y Tailwind CSS',
+      'Rendimiento': 'Puntaje de 90+ en Google PageSpeed Insights',
+      'Seguridad': 'Certificado SSL TLS 1.3 y hosting perimetral CDN',
+      'Soporte Técnico': '30 días de garantía y ajustes posteriores al lanzamiento'
     },
     demoUrl: 'https://example.com/demo-landing',
     destacado: true,
@@ -178,11 +178,11 @@ export const INITIAL_PRODUCTOS: Producto[] = [
   },
   {
     id: 'serv-ecommerce-pro',
-    titulo: 'E-Commerce Pro: Plataforma Transaccional B2B/B2C',
-    slug: 'ecommerce-pro-plataforma-transaccional',
-    descripcion: 'Sistema de comercio digital con panel de administración, control de inventario en tiempo real, catálogo sincronizado y gestión de órdenes.',
+    titulo: 'Plataforma E-Commerce B2B / B2C',
+    slug: 'plataforma-ecommerce-b2b-b2c',
+    descripcion: 'Tienda en línea completa con catálogo autoadministrable, pasarelas de pago nacionales e internacionales, control de inventario y pedidos.',
     categoriaId: 'cat-ecommerce',
-    categoriaNombre: 'Plataformas Transaccionales E-Commerce',
+    categoriaNombre: 'Comercio Electrónico (E-Commerce)',
     tipo: 'servicio_web',
     precio: 17500,
     precioOferta: 15200,
@@ -192,11 +192,11 @@ export const INITIAL_PRODUCTOS: Producto[] = [
     ],
     stock: 999,
     specs: {
-      'Plazo de Entrega': '12 a 16 días hábiles',
-      'Panel Administrativo': 'Gestión de catálogo, variantes, precios y pedidos',
-      'Transacciones': 'Integración bancaria (Stripe, Mercado Pago o SPEI)',
-      'Seguridad': 'Cumplimiento de estándares de cifrado TLS 1.3',
-      'Capacitación': 'Sesión técnica y manuales de administración operativa'
+      'Tiempo de Entrega': '12 a 16 días hábiles',
+      'Pagos Soportados': 'Stripe, Mercado Pago, PayPal y SPEI automatizado',
+      'Panel Administrativo': 'Gestión de productos, variantes, stock y clientes',
+      'Seguridad': 'Cumplimiento de estándares PCI-DSS y cifrado de transacciones',
+      'Capacitación': 'Sesión de entrega en vivo y manual operativo para su equipo'
     },
     demoUrl: 'https://example.com/demo-store',
     destacado: true,
@@ -204,11 +204,11 @@ export const INITIAL_PRODUCTOS: Producto[] = [
   },
   {
     id: 'serv-saas-custom',
-    titulo: 'Desarrollo a la Medida: Plataforma SaaS & Dashboard',
-    slug: 'desarrollo-a-la-medida-saas-dashboard',
-    descripcion: 'Diseño e implementación de software empresarial en la nube con arquitectura de microservicios, autenticación granular y reportes en vivo.',
+    titulo: 'Desarrollo de Software a la Medida & SaaS',
+    slug: 'desarrollo-software-medida-saas',
+    descripcion: 'Diseño y programación de aplicaciones web empresariales, portales de gestión de clientes, paneles de control (dashboards) y APIs seguras.',
     categoriaId: 'cat-saas',
-    categoriaNombre: 'SaaS Empresarial & Dashboards',
+    categoriaNombre: 'SaaS & Dashboards Empresariales',
     tipo: 'servicio_web',
     precio: 35000,
     imagenes: [
@@ -217,11 +217,11 @@ export const INITIAL_PRODUCTOS: Producto[] = [
     ],
     stock: 999,
     specs: {
-      'Plazo de Entrega': '25 a 35 días hábiles',
-      'Base de Datos': 'Cloud Firestore NoSQL / PostgreSQL de alta disponibilidad',
-      'Control de Acceso': 'Roles y permisos empresariales (RBAC)',
-      'APIs': 'Arquitectura RESTful con documentación técnica',
-      'SLA de Soporte': 'Garantía de respuesta técnica y mantenimiento preventivo'
+      'Tiempo de Entrega': '25 a 35 días hábiles según alcance acordado',
+      'Base de Datos': 'PostgreSQL / Cloud Firestore de alta disponibilidad',
+      'Permisos y Roles': 'Autenticación corporativa y control de accesos granular',
+      'Arquitectura': 'Código modular en TypeScript con documentación técnica',
+      'Soporte Técnico': 'Póliza de mantenimiento y soporte de ingeniería disponible'
     },
     demoUrl: 'https://example.com/demo-saas',
     destacado: true,
@@ -229,11 +229,11 @@ export const INITIAL_PRODUCTOS: Producto[] = [
   },
   {
     id: 'serv-web-corporativa',
-    titulo: 'Portal Institucional & Catálogo de Servicios',
-    slug: 'portal-institucional-catalogo-servicios',
-    descripcion: 'Solución web representativa para organizaciones corporativas que requieren comunicar solvencia, propuesta de valor y captar clientes corporativos.',
+    titulo: 'Portal Web Institucional y Corporativo',
+    slug: 'portal-web-institucional-corporativo',
+    descripcion: 'Sitio web profesional para empresas consolidadas y firmas de consultoría, con secciones de servicios, casos de éxito, blog y contacto formal.',
     categoriaId: 'cat-corporativo',
-    categoriaNombre: 'Portales Corporativos',
+    categoriaNombre: 'Portales Web Institucionales',
     tipo: 'servicio_web',
     precio: 10500,
     precioOferta: 9200,
@@ -242,10 +242,10 @@ export const INITIAL_PRODUCTOS: Producto[] = [
     ],
     stock: 999,
     specs: {
-      'Plazo de Entrega': '8 a 12 días hábiles',
-      'Secciones': 'Corporativo, Soluciones, Casos de Estudio, Mesa de Contacto',
-      'Optimización': 'SEO semántico y diseño adaptativo multidispositivo',
-      'Formularios': 'Enrutamiento seguro de solicitudes hacia correos institucionales'
+      'Tiempo de Entrega': '8 a 12 días hábiles',
+      'Estructura': 'Inicio, Servicios, Nosotros, Casos de Estudio y Contacto',
+      'Optimización': 'Indexación SEO técnica y compatibilidad móvil total',
+      'Formularios': 'Validación en tiempo real y reenvío a correos corporativos'
     },
     demoUrl: 'https://example.com/demo-corp',
     destacado: false,
@@ -253,7 +253,7 @@ export const INITIAL_PRODUCTOS: Producto[] = [
   }
 ];
 
-const LOCAL_STORAGE_PRODUCTS_KEY = 'inversa_catalog_products_v3';
+const LOCAL_STORAGE_PRODUCTS_KEY = 'inversa_catalog_products_v4';
 
 const getLocalProducts = (): Producto[] => {
   try {
@@ -281,6 +281,28 @@ const saveLocalProducts = (products: Producto[]) => {
   }
 };
 
+const CATEGORY_NAME_MAP: Record<string, string> = {
+  'Workstations & Cómputo Móvil': 'Laptops & Workstations',
+  'Unidades de Procesamiento Gráfico': 'Tarjetas Gráficas (GPUs)',
+  'Acústica & Cancelación Activa': 'Audio Profesional',
+  'Displays de Grado Profesional': 'Monitores & Pantallas',
+  'Periféricos de Precisión': 'Periféricos & Teclados',
+  'Arquitectura Web & Conversión': 'Landing Pages Corporativas',
+  'Plataformas Transaccionales E-Commerce': 'Comercio Electrónico (E-Commerce)',
+  'SaaS Empresarial & Dashboards': 'SaaS & Dashboards Empresariales',
+  'Portales Corporativos': 'Portales Web Institucionales'
+};
+
+const normalizeProduct = (p: Producto): Producto => ({
+  ...p,
+  categoriaNombre: CATEGORY_NAME_MAP[p.categoriaNombre] || p.categoriaNombre
+});
+
+const normalizeCategory = (c: Categoria): Categoria => ({
+  ...c,
+  nombre: CATEGORY_NAME_MAP[c.nombre] || c.nombre
+});
+
 export const getProductos = async (): Promise<Producto[]> => {
   if (isFirebaseConfigured && db) {
     try {
@@ -295,7 +317,7 @@ export const getProductos = async (): Promise<Producto[]> => {
         const prods = snapshot.docs.map((docSnap) => ({
           id: docSnap.id,
           ...docSnap.data()
-        } as Producto));
+        } as Producto)).map(normalizeProduct);
         saveLocalProducts(prods);
         return prods;
       }
@@ -304,10 +326,10 @@ export const getProductos = async (): Promise<Producto[]> => {
     }
   }
 
-  return getLocalProducts();
+  return getLocalProducts().map(normalizeProduct);
 };
 
-const LOCAL_STORAGE_CATEGORIES_KEY = 'inversa_custom_categories_v2';
+const LOCAL_STORAGE_CATEGORIES_KEY = 'inversa_custom_categories_v4';
 
 const getLocalCategories = (): Categoria[] => {
   try {
@@ -315,7 +337,7 @@ const getLocalCategories = (): Categoria[] => {
     if (saved) {
       const parsed = JSON.parse(saved);
       if (Array.isArray(parsed) && parsed.length > 0) {
-        return parsed;
+        return parsed.map(normalizeCategory);
       }
     }
   } catch (e) {
@@ -324,7 +346,7 @@ const getLocalCategories = (): Categoria[] => {
   try {
     localStorage.setItem(LOCAL_STORAGE_CATEGORIES_KEY, JSON.stringify(INITIAL_CATEGORIAS));
   } catch {}
-  return INITIAL_CATEGORIAS;
+  return INITIAL_CATEGORIAS.map(normalizeCategory);
 };
 
 const saveLocalCategories = (categories: Categoria[]) => {
@@ -340,7 +362,7 @@ export const getCategorias = async (): Promise<Categoria[]> => {
     try {
       const snapshot = await getDocs(collection(db, 'categorias'));
       if (!snapshot.empty) {
-        const cats = snapshot.docs.map((d) => ({ id: d.id, ...d.data() } as Categoria));
+        const cats = snapshot.docs.map((d) => ({ id: d.id, ...d.data() } as Categoria)).map(normalizeCategory);
         saveLocalCategories(cats);
         return cats;
       }
@@ -348,7 +370,7 @@ export const getCategorias = async (): Promise<Categoria[]> => {
       console.warn('Categorias desde Firestore no disponibles, usando base local:', e);
     }
   }
-  return getLocalCategories();
+  return getLocalCategories().map(normalizeCategory);
 };
 
 export const createCategoria = async (categoriaData: Omit<Categoria, 'id'>): Promise<Categoria> => {

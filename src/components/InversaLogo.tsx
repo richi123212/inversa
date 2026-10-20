@@ -148,14 +148,11 @@ export const InversaLogo: React.FC<InversaLogoProps> = ({
         )}
       </div>
 
-      {/* Typography: INVERSA / TECNOLOGÍA EN MOVIMIENTO */}
+      {/* Typography: INVERSA */}
       {showText && (
         <div className="flex flex-col justify-center leading-none">
-          <span className={`font-black tracking-[0.22em] text-white uppercase ${sizeMap[size].textTitle}`}>
+          <span className={`font-black tracking-[0.16em] text-white uppercase font-sans ${sizeMap[size].textTitle}`}>
             INVERSA
-          </span>
-          <span className={`font-semibold tracking-[0.28em] text-slate-400 uppercase mt-1 ${sizeMap[size].textSub}`}>
-            TECNOLOGÍA EN MOVIMIENTO
           </span>
         </div>
       )}
