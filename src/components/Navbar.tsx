@@ -5,7 +5,7 @@ import {
   Search, 
   Cpu, 
   Code2, 
-  Calculator, 
+  Info, 
   Mail, 
   Menu, 
   X,
@@ -95,13 +95,17 @@ export const Navbar: React.FC<NavbarProps> = ({
               <span>Soluciones Web &amp; Software</span>
             </button>
 
-            {/* Cotizaciones */}
+            {/* Sobre Inversa */}
             <button
-              onClick={() => handleNav('tienda', 'crea_tu_web')}
-              className="px-3.5 py-2 rounded-lg hover:text-white hover:bg-zinc-900/60 transition-colors flex items-center gap-1.5"
+              onClick={() => handleNav('sobre_inversa')}
+              className={`px-3.5 py-2 rounded-lg transition-colors flex items-center gap-1.5 ${
+                currentView === 'sobre_inversa'
+                  ? 'bg-zinc-800 text-white font-semibold'
+                  : 'hover:text-white hover:bg-zinc-900/60'
+              }`}
             >
-              <Calculator className="w-3.5 h-3.5 text-zinc-400" />
-              <span>Cotizaciones</span>
+              <Info className="w-3.5 h-3.5 text-zinc-400" />
+              <span>Sobre Inversa</span>
             </button>
 
             {/* Contacto */}
@@ -283,11 +287,15 @@ export const Navbar: React.FC<NavbarProps> = ({
               </button>
 
               <button
-                onClick={() => handleNav('tienda', 'crea_tu_web')}
-                className="w-full p-2.5 rounded-lg text-left flex items-center gap-2 text-zinc-300 hover:bg-zinc-900"
+                onClick={() => handleNav('sobre_inversa')}
+                className={`w-full p-2.5 rounded-lg text-left flex items-center gap-2 ${
+                  currentView === 'sobre_inversa'
+                    ? 'bg-zinc-800 text-white font-semibold'
+                    : 'text-zinc-300 hover:bg-zinc-900'
+                }`}
               >
-                <Calculator className="w-4 h-4 text-zinc-400" />
-                <span>Cotizaciones</span>
+                <Info className="w-4 h-4 text-zinc-400" />
+                <span>Sobre Inversa</span>
               </button>
 
               <button

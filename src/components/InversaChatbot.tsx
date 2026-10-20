@@ -50,7 +50,7 @@ export const InversaChatbot: React.FC<InversaChatbotProps> = ({ onNavigateTab })
   const initialGreeting: ChatMessage = {
     id: 'msg-welcome',
     sender: 'bot',
-    text: `¡Hola! Soy el **Asistente Inversa**. Estoy aquí para orientarte de inmediato con cualquier duda sobre **hardware, garantías, envíos, facturación fiscal CFDI 4.0** y el desarrollo de **páginas web a la medida**.
+    text: `¡Hola! Soy el **Asistente Inversa**. Estoy aquí para orientarte de inmediato con cualquier duda sobre **hardware, especificaciones técnicas, envíos** y el desarrollo de **páginas web a la medida**.
 
 Puedes escribir tu pregunta abajo (el sistema predecirá la respuesta mientras escribes) o seleccionar una de las opciones disponibles:`,
     timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),

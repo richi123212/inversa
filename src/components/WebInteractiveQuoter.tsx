@@ -1287,7 +1287,7 @@ ${listaServiciosText}
                 <span className="text-slate-300">${formatPrice(calculation.subtotal)} MXN</span>
               </div>
               <div className="flex justify-between">
-                <span>I.V.A. (16% CFDI 4.0):</span>
+                <span>I.V.A. (16%):</span>
                 <span className="text-slate-300">${formatPrice(calculation.iva)} MXN</span>
               </div>
               <div className="flex justify-between text-white font-bold pt-1.5 border-t border-white/5 text-sm">
@@ -1317,7 +1317,7 @@ ${listaServiciosText}
               </div>
               <div className="flex items-center gap-2">
                 <CheckCheck className="w-4 h-4 text-blue-400 shrink-0" />
-                <span>Factura fiscal mexicana CFDI 4.0 disponible</span>
+                <span>Precios transparentes con IVA desglosado</span>
               </div>
             </div>
 

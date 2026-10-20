@@ -37,7 +37,7 @@ export const AboutInversaSection: React.FC<AboutInversaSectionProps> = ({ onGoTo
           </h1>
 
           <p className="mt-5 text-sm sm:text-base text-zinc-300 leading-relaxed">
-            Inversa es un portal especializado en el suministro de equipamiento tecnológico de alto rendimiento y consultoría en ingeniería web para profesionistas y empresas en México. Garantizamos facturación fiscal CFDI 4.0 inmediata, soporte local y cobertura logística nacional.
+            Inversa es un portal especializado en el suministro de equipamiento tecnológico de alto rendimiento y consultoría en ingeniería de software para profesionistas y empresas en México. Catálogo especializado, asesoría técnica directa y soluciones a la medida.
           </p>
 
           <div className="mt-8 flex flex-wrap items-center gap-4">
@@ -95,14 +95,14 @@ export const AboutInversaSection: React.FC<AboutInversaSectionProps> = ({ onGoTo
             <div className="w-10 h-10 rounded-lg bg-zinc-800 border border-zinc-700 flex items-center justify-center text-zinc-200 mb-6">
               <Building2 className="w-5 h-5 text-emerald-400" />
             </div>
-            <h3 className="text-base font-semibold text-white mb-2">Respaldo Fiscal y Logístico</h3>
+            <h3 className="text-base font-semibold text-white mb-2">Atención y Despacho Empresarial</h3>
             <p className="text-xs sm:text-sm text-zinc-400 leading-relaxed">
-              Todos los precios exhibidos en Inversa incluyen IVA. Emitimos facturación fiscal CFDI 4.0 automática para personas morales y físicas, con envíos asegurados a todo México.
+              Todos los precios exhibidos en Inversa incluyen IVA en pesos mexicanos. Ofrecemos acompañamiento técnico personalizado y envíos asegurados para proyectos corporativos.
             </p>
           </div>
           <div className="mt-6 pt-4 border-t border-zinc-800 text-xs font-mono text-zinc-300 flex items-center gap-2">
             <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" />
-            <span>CFDI 4.0 en Pesos Mexicanos (MXN)</span>
+            <span>Precios Claros en MXN (IVA Incluido)</span>
           </div>
         </div>
 
@@ -128,8 +128,8 @@ export const AboutInversaSection: React.FC<AboutInversaSectionProps> = ({ onGoTo
 
           <div className="p-4 rounded-lg bg-zinc-950/70 border border-zinc-800">
             <FileCheck className="w-5 h-5 text-sky-400 mb-2" />
-            <h4 className="text-sm font-semibold text-white">Factura CFDI 4.0</h4>
-            <p className="text-xs text-zinc-400 mt-1">Cumplimiento total con disposiciones fiscales del SAT. Precios transparentes con IVA incluido.</p>
+            <h4 className="text-sm font-semibold text-white">Precios Transparentes</h4>
+            <p className="text-xs text-zinc-400 mt-1">Valores finales en moneda nacional con IVA desglosado desde la primera consulta.</p>
           </div>
 
           <div className="p-4 rounded-lg bg-zinc-950/70 border border-zinc-800">

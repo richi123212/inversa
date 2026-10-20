@@ -15,7 +15,6 @@ import { ProductDetailModal } from '../components/ProductDetailModal';
 import { WebInteractiveQuoter } from '../components/WebInteractiveQuoter';
 import { ProcessorCircuitAnimation } from '../components/ProcessorCircuitAnimation';
 import { CatalogBackgroundCircuit } from '../components/CatalogBackgroundCircuit';
-import { TrustSignalsBar } from '../components/TrustSignalsBar';
 
 interface CatalogPageProps {
   activeTab: 'hardware' | 'crea_tu_web';
@@ -131,9 +130,9 @@ export const CatalogPage: React.FC<CatalogPageProps> = ({
             Equipamiento tecnológico y desarrollo de software para profesionistas y empresas.
           </h1>
 
-          {/* Subtext (Exact copy requested by user) */}
+          {/* Subtext */}
           <p className="mt-6 text-sm sm:text-base text-zinc-400 max-w-2xl mx-auto leading-relaxed">
-            Soluciones integrales de hardware de alto rendimiento y arquitectura digital a la medida con facturación inmediata y cobertura nacional.
+            Soluciones integrales de hardware de alto rendimiento y arquitectura digital a la medida para profesionistas y empresas.
           </p>
 
           {/* Two Direct CTAs (Solid vs Outline) */}
@@ -163,10 +162,7 @@ export const CatalogPage: React.FC<CatalogPageProps> = ({
         </div>
       </section>
 
-      {/* 2. Corporate Trust Signals Bar (CFDI 4.0, Garantía, Pagos, Soporte) */}
-      <TrustSignalsBar />
-
-      {/* 3. Main Business Operations Content */}
+      {/* 2. Main Business Operations Content */}
       <main ref={catalogRef} className="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-12">
 
         {/* Business Proposition Switcher Tabs */}

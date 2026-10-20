@@ -155,7 +155,7 @@ export const ProductDetailModal: React.FC<ProductDetailModalProps> = ({ producto
                 )}
               </div>
               <div className="flex items-center gap-2 mt-1">
-                <span className="text-xs text-zinc-400 font-medium">IVA incluido (Factura CFDI 4.0 inmediata)</span>
+                <span className="text-xs text-zinc-400 font-medium">IVA incluido</span>
               </div>
             </div>
 

@@ -25,11 +25,11 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
               <InversaLogo size="md" showText={true} animated={false} />
             </button>
             <p className="text-xs text-zinc-400 leading-relaxed mt-3">
-              Soluciones integrales de hardware de alto rendimiento y arquitectura digital a la medida con facturación inmediata y cobertura nacional.
+              Soluciones integrales de hardware de alto rendimiento y arquitectura digital a la medida para profesionistas y empresas.
             </p>
             <div className="flex items-center gap-2 pt-2 text-[11px] font-mono text-zinc-400">
               <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
-              <span>Facturación CFDI 4.0 • Precios en MXN</span>
+              <span>Precios en Pesos Mexicanos (MXN)</span>
             </div>
           </div>
 
@@ -107,7 +107,7 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
           <div className="flex flex-wrap items-center gap-4 sm:gap-6 font-mono text-[11px]">
             <span className="flex items-center gap-1.5 text-zinc-400">
               <FileCheck className="w-3.5 h-3.5 text-sky-400" />
-              <span>CFDI 4.0 con IVA Desglosado</span>
+              <span>IVA Incluido en Todos los Precios</span>
             </span>
             <span className="flex items-center gap-1.5 text-zinc-400">
               <Truck className="w-3.5 h-3.5 text-zinc-300" />

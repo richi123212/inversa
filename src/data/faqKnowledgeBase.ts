@@ -16,7 +16,7 @@ export const FAQ_TOPICS = [
   { id: 'todos', label: 'Todos los Temas' },
   { id: 'hardware', label: 'Hardware & Equipos' },
   { id: 'envios', label: 'Envíos & Logística' },
-  { id: 'facturacion', label: 'Facturación CFDI' },
+  { id: 'facturacion', label: 'Facturación' },
   { id: 'desarrollo_web', label: 'Sitios Web & Software' },
   { id: 'pagos', label: 'Métodos de Pago' },
   { id: 'soporte', label: 'Asesor Humano' }

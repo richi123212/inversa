@@ -1727,7 +1727,7 @@ export const WebsiteMockupPreview: React.FC<WebsiteMockupPreviewProps> = ({
                 ) : (
                   <div className="bg-slate-900 text-slate-200 border-b border-slate-800 px-4 py-1.5 text-[11px] font-mono text-center flex items-center justify-center gap-2">
                     <Truck className="w-3.5 h-3.5 text-sky-400" />
-                    <span>🚚 Facturación CFDI 4.0 Inmediata • Envíos a todo México • Póliza de Garantía Directa</span>
+                    <span>🚚 Envíos seguros a todo México • Soporte Directo • Pagos en MXN</span>
                   </div>
                 )}
 

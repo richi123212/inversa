@@ -62,7 +62,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ onGoToStore }) =
             Contacto y Asesoría B2B
           </h1>
           <p className="mt-3 text-sm sm:text-base text-zinc-400 max-w-2xl leading-relaxed">
-            Canal directo de comunicación para profesionistas, empresas e instituciones en México. Resolvemos consultas sobre compras de hardware, cotizaciones por volumen, facturación fiscal CFDI 4.0 y desarrollo de software.
+            Canal directo de comunicación para profesionistas, empresas e instituciones en México. Resolvemos consultas sobre compras de hardware, asesoría técnica especializada y desarrollo de software.
           </p>
         </div>
 
@@ -92,8 +92,8 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ onGoToStore }) =
                   <span className="text-zinc-200 font-semibold">proyectos@inversati.com</span>
                 </div>
                 <div className="flex items-center justify-between p-2.5 rounded-lg bg-zinc-950/80 border border-zinc-800/80">
-                  <span className="text-zinc-400">Facturación &amp; CFDI:</span>
-                  <span className="text-zinc-200 font-semibold">facturacion@inversati.com</span>
+                  <span className="text-zinc-400">Atención General:</span>
+                  <span className="text-zinc-200 font-semibold">contacto@inversati.com</span>
                 </div>
               </div>
             </div>
@@ -144,7 +144,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ onGoToStore }) =
                   <MapPin className="w-4 h-4 text-zinc-400" />
                 </div>
                 <div>
-                  <h3 className="text-sm font-semibold text-white">Cobertura Nacional</h3>
+                  <h3 className="text-sm font-semibold text-white">Envíos a Todo México</h3>
                   <span className="text-xs text-zinc-400 font-mono">República Mexicana</span>
                 </div>
               </div>

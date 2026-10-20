@@ -193,7 +193,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({ producto, onOpenDetail
               ) : (
                 <>
                   <ShoppingBag className="w-3.5 h-3.5" />
-                  <span>Cotizar / Agregar</span>
+                  <span>Agregar al pedido</span>
                 </>
               )}
             </button>

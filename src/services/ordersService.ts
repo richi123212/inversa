@@ -36,7 +36,7 @@ const INITIAL_DEMO_ORDERS: Pedido[] = [
     ],
     total: 59498,
     estado: 'pendiente',
-    notas: 'Requerimiento con factura fiscal CFDI. Horario de entrega en corporativo de 9:00 a 18:00 hrs.',
+    notas: 'Entrega en corporativo. Horario de recepción de 9:00 a 18:00 hrs.',
     createdAt: new Date(Date.now() - 3600000 * 3).toISOString()
   },
   {
