@@ -43,11 +43,26 @@ export interface PedidoItem {
   tipo: TipoProducto;
 }
 
+export interface DireccionDetallada {
+  calleNumero: string;
+  numeroInterior?: string;
+  colonia: string;
+  codigoPostal: string;
+  ciudad: string;
+  estado: string;
+  referencias?: string;
+}
+
 export interface Pedido {
   id: string;
   clienteNombre: string;
   clienteTelefono: string;
   clienteEmail?: string;
+  direccionEntrega?: string;
+  direccionDetallada?: DireccionDetallada;
+  metodoPago?: string;
+  transaccionId?: string;
+  estadoPago?: 'pendiente_verificacion' | 'aprobado_mercadopago' | 'pendiente_transferencia';
   items: PedidoItem[];
   total: number;
   estado: EstadoPedido;

@@ -22,7 +22,10 @@ import {
   Code2,
   AlertTriangle,
   Search,
-  Layers
+  Layers,
+  MapPin,
+  Mail,
+  CreditCard
 } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 import { 
@@ -833,7 +836,28 @@ export const AdminPage: React.FC = () => {
                           <Phone className="w-3.5 h-3.5 text-emerald-400" />
                           <span className="font-mono">{pedido.clienteTelefono}</span>
                         </div>
+                        {pedido.clienteEmail && (
+                          <div className="flex items-center gap-2 text-slate-300">
+                            <Mail className="w-3.5 h-3.5 text-blue-400" />
+                            <span className="truncate">{pedido.clienteEmail}</span>
+                          </div>
+                        )}
+                        {pedido.metodoPago && (
+                          <div className="flex items-center gap-2 text-slate-300">
+                            <CreditCard className="w-3.5 h-3.5 text-amber-400" />
+                            <span className="truncate">{pedido.metodoPago}</span>
+                          </div>
+                        )}
                       </div>
+
+                      {pedido.direccionEntrega && (
+                        <div className="text-xs text-slate-300 bg-[#080C14] p-2.5 rounded-lg border border-white/5 flex items-start gap-2">
+                          <MapPin className="w-3.5 h-3.5 text-cyan-400 shrink-0 mt-0.5" />
+                          <div>
+                            <strong className="text-white">Dirección de Entrega:</strong> {pedido.direccionEntrega}
+                          </div>
+                        </div>
+                      )}
 
                       {pedido.notas && (
                         <p className="text-xs text-slate-400 bg-[#080C14] p-2.5 rounded-lg border border-white/5">

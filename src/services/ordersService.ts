@@ -141,16 +141,56 @@ export const updateOrderStatus = async (orderId: string, nuevoEstado: EstadoPedi
   saveLocalOrders(updated);
 };
 
+export const updateOrderDetails = async (orderId: string, updates: Partial<Pedido>): Promise<void> => {
+  if (isFirebaseConfigured && db) {
+    try {
+      const docRef = doc(db, 'pedidos', orderId);
+      await updateDoc(docRef, updates);
+      return;
+    } catch (e) {
+      console.warn('Error al actualizar orden en Firestore, guardando local:', e);
+    }
+  }
+
+  const current = getLocalOrders();
+  const updated = current.map((ord) => (ord.id === orderId ? { ...ord, ...updates } : ord));
+  saveLocalOrders(updated);
+};
+
+export const generateWhatsAppTransferUrl = (pedido: Pedido): string => {
+  const rawPhone = import.meta.env.VITE_WHATSAPP_PHONE_NUMBER || '5215555555555';
+  const cleanPhone = rawPhone.replace(/[^0-9]/g, '');
+
+  let message = `[COMPROBANTE DE PAGO / TRANSFERENCIA - INVERSA]\n\n`;
+  message += `Hola, solicito validación de pago para mi pedido:\n`;
+  message += `• Folio Oficial: #${pedido.id}\n`;
+  message += `• Cliente: ${pedido.clienteNombre}\n`;
+  message += `• Importe Total: $${formatPrice(pedido.total)} MXN\n`;
+  message += `• Método: Transferencia Bancaria SPEI\n`;
+  if (pedido.direccionEntrega) {
+    message += `• Destino de Envío: ${pedido.direccionEntrega}\n`;
+  }
+  message += `\nAdjunto en este chat mi comprobante de transferencia bancaria para su validación (plazo de 2 días hábiles).`;
+
+  return `https://wa.me/${cleanPhone}?text=${encodeURIComponent(message)}`;
+};
+
 export const generateWhatsAppCheckoutUrl = (pedido: Pedido): string => {
   const rawPhone = import.meta.env.VITE_WHATSAPP_PHONE_NUMBER || '5215555555555';
   const cleanPhone = rawPhone.replace(/[^0-9]/g, '');
 
-  let message = `[ORDEN DE COMPRA - INVERSA TECNOLOGÍA EN MOVIMIENTO]\n\n`;
+  let message = `[ORDEN DE PEDIDO - INVERSA TECNOLOGÍA EN MOVIMIENTO]\n\n`;
   message += `Folio de Registro: #${pedido.id}\n`;
   message += `Cliente: ${pedido.clienteNombre}\n`;
   message += `Contacto: ${pedido.clienteTelefono}\n`;
   if (pedido.clienteEmail) {
-    message += `Correo Corporativo: ${pedido.clienteEmail}\n`;
+    message += `Correo: ${pedido.clienteEmail}\n`;
+  }
+  if (pedido.direccionEntrega) {
+    message += `Dirección de Entrega: ${pedido.direccionEntrega}\n`;
+  }
+  if (pedido.metodoPago) {
+    message += `Método de Pago: ${pedido.metodoPago}\n`;
   }
   message += `\nDETALLE DE LA ORDEN:\n`;
 
@@ -163,10 +203,10 @@ export const generateWhatsAppCheckoutUrl = (pedido: Pedido): string => {
   message += `\nTOTAL DE LA ORDEN: $${formatPrice(pedido.total)} MXN\n`;
 
   if (pedido.notas && pedido.notas.trim() !== '') {
-    message += `\nNotas y Requerimientos Adicionales:\n${pedido.notas.trim()}\n`;
+    message += `\nNotas Adicionales:\n${pedido.notas.trim()}\n`;
   }
 
-  message += `\nSolicito confirmación de disponibilidad para procesamiento institucional de la orden.`;
+  message += `\nSolicito confirmación de recepción para el procesamiento de mi orden.`;
 
   return `https://wa.me/${cleanPhone}?text=${encodeURIComponent(message)}`;
 };
