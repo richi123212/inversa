@@ -1,3 +1,4 @@
+import { SectionBackground } from "./components/SectionBackground";
 import React, { lazy, Suspense, useEffect, useState } from "react";
 import {
   BrowserRouter,
@@ -53,7 +54,8 @@ function Layout() {
         Ir al contenido
       </a>
       <Navbar />
-      <main id="main-content">
+      <main id="main-content" className="page-stage">
+        <SectionBackground pathname={pathname} />
         <Suspense
           fallback={
             <p className="page-shell section" role="status">
