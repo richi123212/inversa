@@ -1,3 +1,4 @@
+import { company, pending } from '../data/company';
 import React, { useState, useEffect } from 'react';
 import { ShieldCheck, Truck, Receipt, Sparkles } from 'lucide-react';
 
@@ -14,7 +15,7 @@ const ANNOUNCEMENTS = [
   },
   {
     icon: Truck,
-    text: 'Envíos asegurados a las 32 entidades de la República con DHL y FedEx',
+    text: 'Cobertura de envíos: '+(company.coberturaEnvios ?? pending),
     badge: 'Cobertura'
   }
 ];

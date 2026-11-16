@@ -54,6 +54,7 @@ export interface DireccionDetallada {
 }
 
 export interface Pedido {
+  savedLocally?: boolean;
   id: string;
   clienteNombre: string;
   clienteTelefono: string;

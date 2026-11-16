@@ -12,7 +12,7 @@ import { Producto, Categoria } from '../types';
 import { getProductos, getCategorias } from '../services/productsService';
 import { ProductCard } from '../components/ProductCard';
 import { ProductDetailModal } from '../components/ProductDetailModal';
-import { DynamicSoftwareConfigurator } from '../components/configurator/DynamicSoftwareConfigurator';
+import { Link, useNavigate } from 'react-router-dom';
 import { ProcessorCircuitAnimation } from '../components/ProcessorCircuitAnimation';
 import { CatalogBackgroundCircuit } from '../components/CatalogBackgroundCircuit';
 
@@ -29,6 +29,7 @@ export const CatalogPage: React.FC<CatalogPageProps> = ({
   searchQuery,
   setSearchQuery
 }) => {
+  const navigate = useNavigate();
   const [productos, setProductos] = useState<Producto[]>([]);
   const [categorias, setCategorias] = useState<Categoria[]>([]);
   const [selectedCategory, setSelectedCategory] = useState<string>('todas');
@@ -150,7 +151,7 @@ export const CatalogPage: React.FC<CatalogPageProps> = ({
 
             <button
               onClick={() => {
-                setActiveTab('crea_tu_web');
+                navigate('/cotizador?nuevo=1');
                 scrollToCatalog();
               }}
               className="w-full sm:w-auto px-6 py-3 rounded-lg bg-zinc-900/80 hover:bg-zinc-800 border border-zinc-700/80 hover:border-zinc-600 text-zinc-200 text-xs sm:text-sm font-semibold flex items-center justify-center gap-2 transition-all"
@@ -181,7 +182,7 @@ export const CatalogPage: React.FC<CatalogPageProps> = ({
             </button>
 
             <button
-              onClick={() => setActiveTab('crea_tu_web')}
+              onClick={() => navigate('/desarrollo')}
               className={`px-4 sm:px-5 py-2 rounded-lg text-xs sm:text-sm font-medium tracking-normal transition-all flex items-center gap-2 shrink-0 ${
                 activeTab === 'crea_tu_web'
                   ? 'bg-zinc-800 text-white font-semibold shadow-xs'
@@ -254,7 +255,7 @@ export const CatalogPage: React.FC<CatalogPageProps> = ({
 
         {/* View Switcher: Interactive Dynamic Visual Configurator vs Hardware Catalog with Background Circuit */}
         {activeTab === 'crea_tu_web' ? (
-          <DynamicSoftwareConfigurator />
+          <Link to="/cotizador" className="btn">Cotizar mi proyecto</Link>
         ) : (
           <div className="relative rounded-2xl p-6 sm:p-8 bg-zinc-950/60 border border-zinc-800/80 min-h-[500px]">
             

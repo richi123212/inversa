@@ -1,3 +1,4 @@
+import { company, pending } from './company';
 export interface FaqItem {
   id: string;
   categoria: 'hardware' | 'envios' | 'facturacion' | 'desarrollo_web' | 'pagos' | 'soporte';
@@ -90,7 +91,7 @@ Puedes indicarnos tus requisitos de CPU, GPU, memoria RAM y almacenamiento con n
     id: 'faq-env-cobertura',
     categoria: 'envios',
     categoriaLabel: 'Envíos & Logística',
-    pregunta: '¿Hacen envíos a todo México y cuánto tardan en llegar?',
+    pregunta: '¿Cuál es la cobertura y el tiempo de entrega?',
     sinonimos: [
       'cuanto tarda el envio',
       'hacen envios a toda la republica',
@@ -98,11 +99,7 @@ Puedes indicarnos tus requisitos de CPU, GPU, memoria RAM y almacenamiento con n
       'costo de envio a mi ciudad'
     ],
     keywords: ['envio', 'envios', 'mexico', 'republica', 'dhl', 'fedex', 'paqueteria', 'tiempo', 'tardan', 'llegar', 'flete', 'costo'],
-    respuesta: `Realizamos **envíos asegurados a las 32 entidades federativas de la República Mexicana** a través de convenios prioritarios con DHL Express, FedEx y Estafeta.
-
-• **Tiempos de entrega:** De 2 a 4 días hábiles en zonas metropolitanas y de 3 a 5 días en zonas extendidas.
-• **Rastreo continuo:** En cuanto tu pedido se despacha, recibes tu número de guía y enlace de seguimiento en tiempo real.
-• **Seguro total:** Todos los paquetes viajan con seguro contra extravío o daño físico en tránsito.`,
+    respuesta: 'Cobertura de envíos: '+(company.coberturaEnvios ?? pending)+'. Tiempo de entrega: '+(company.diasEntrega ?? pending)+'. Las condiciones se confirman en la cotización.',
     destacada: true,
     actionType: 'ir_hardware',
     actionLabel: 'Ver Productos con Envío'

@@ -1,3 +1,4 @@
+import { company as companyData } from '../data/company';
 import { db, isFirebaseConfigured } from '../lib/firebase';
 import { collection, doc, setDoc, getDoc, getDocs, query, orderBy, limit } from 'firebase/firestore';
 import { ConfigState, QuoteCalculation, SavedSoftwareQuote } from '../types/configurator';
@@ -75,7 +76,7 @@ export async function saveSoftwareQuote(
   const origin = typeof window !== 'undefined' ? window.location.origin : 'https://inversati.com';
   const shareUrl = `${origin}/?tab=crea_tu_web&folio=${id}`;
 
-  const cleanPhone = (import.meta.env.VITE_WHATSAPP_PHONE_NUMBER || '5215555555555').replace(/[^0-9]/g, '');
+  const cleanPhone = (companyData.whatsapp || '').replace(/[^0-9]/g, '');
   const activeModulesNames = calculation.includedFeatures.slice(0, 4).join(', ');
   
   const whatsappMsg = `¡Hola Inversa! Acabo de generar mi propuesta en el Configurador Web con Folio *#${id}*.

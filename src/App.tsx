@@ -1,101 +1,157 @@
-import React, { useState } from 'react';
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
-import { AuthProvider } from './context/AuthContext';
-import { CartProvider } from './context/CartContext';
-import { Navbar } from './components/Navbar';
-import { Footer } from './components/Footer';
-import { CartDrawer } from './components/CartDrawer';
-import { ProtectedRoute } from './components/ProtectedRoute';
-import { CatalogPage } from './pages/CatalogPage';
-import { LoginPage } from './pages/LoginPage';
-import { AdminPage } from './pages/AdminPage';
-
-import { AboutInversaSection } from './components/AboutInversaSection';
-import { ContactSection } from './components/ContactSection';
-import { InversaChatbot } from './components/InversaChatbot';
-
-const MainLayout: React.FC = () => {
-  const [currentView, setCurrentView] = useState<'tienda' | 'sobre_inversa' | 'contacto'>('tienda');
-  const [activeTab, setActiveTab] = useState<'hardware' | 'crea_tu_web'>('hardware');
-  const [searchQuery, setSearchQuery] = useState('');
-
+import React, { lazy, Suspense, useEffect, useState } from "react";
+import {
+  BrowserRouter,
+  Routes,
+  Route,
+  Navigate,
+  Outlet,
+  useLocation,
+  useNavigate,
+} from "react-router-dom";
+import { AuthProvider } from "./context/AuthContext";
+import { CartProvider } from "./context/CartContext";
+import { Navbar } from "./components/Navbar";
+import { Footer } from "./components/Footer";
+import { CartDrawer } from "./components/CartDrawer";
+import { ProtectedRoute } from "./components/ProtectedRoute";
+import { CatalogPage } from "./pages/CatalogPage";
+import { LoginPage } from "./pages/LoginPage";
+import { AdminPage } from "./pages/AdminPage";
+import { HomePage, CorporatePage } from "./pages/CompanyPages";
+import { DevelopmentPage } from "./pages/DevelopmentPage";
+import { LegalPage, legalPages } from "./pages/LegalPage";
+import { ContactSection } from "./components/ContactSection";
+import { CookieConsent } from "./components/CookieConsent";
+import { PaymentReturnPage } from "./pages/PaymentReturnPage";
+import { Seo } from "./components/Seo";
+import { company, pending } from "./data/company";
+import { chatbotEnabled, features } from "./config/features";
+const Chatbot = lazy(() =>
+  import("./components/InversaChatbot").then((m) => ({
+    default: m.InversaChatbot,
+  })),
+);
+const Wizard = lazy(() =>
+  import("./pages/QuoteWizard").then((m) => ({ default: m.QuoteWizard })),
+);
+const Legacy = lazy(() =>
+  import("./components/configurator/DynamicSoftwareConfigurator").then((m) => ({
+    default: m.DynamicSoftwareConfigurator,
+  })),
+);
+function Layout() {
+  const { pathname } = useLocation();
+  const navigate = useNavigate();
+  const [bot, setBot] = useState(false);
+  useEffect(() => {
+    window.scrollTo(0, 0);
+    setBot(chatbotEnabled());
+  }, [pathname]);
   return (
-    <div className="flex flex-col min-h-screen bg-[#09090b] text-zinc-100 font-sans selection:bg-zinc-700 selection:text-white">
-      <Navbar
-        currentView={currentView}
-        setCurrentView={setCurrentView}
-        activeTab={activeTab}
-        setActiveTab={setActiveTab}
-        searchQuery={searchQuery}
-        setSearchQuery={setSearchQuery}
-      />
-      <div className="flex-1">
-        {currentView === 'tienda' && (
-          <CatalogPage
-            activeTab={activeTab}
-            setActiveTab={setActiveTab}
-            searchQuery={searchQuery}
-            setSearchQuery={setSearchQuery}
-          />
+    <div className="min-h-screen bg-[#09090b] text-zinc-100">
+      <a href="#main-content" className="skip-link">
+        Ir al contenido
+      </a>
+      <Navbar />
+      <main id="main-content">
+        <Suspense
+          fallback={
+            <p className="page-shell section" role="status">
+              Cargando…
+            </p>
+          }
+        >
+          <Outlet />
+        </Suspense>
+      </main>
+      <Footer />
+      {pathname.startsWith("/tienda") && <CartDrawer />}
+      <CookieConsent />
+      {bot &&
+        !pathname.startsWith("/cotizador") &&
+        !pathname.startsWith("/pago") && (
+          <Suspense fallback={null}>
+            <Chatbot
+              onNavigateTab={(tab) =>
+                navigate(tab === "hardware" ? "/tienda" : "/cotizador")
+              }
+            />
+          </Suspense>
         )}
-        {currentView === 'sobre_inversa' && (
-          <AboutInversaSection onGoToStore={() => setCurrentView('tienda')} />
-        )}
-        {currentView === 'contacto' && (
-          <ContactSection onGoToStore={() => setCurrentView('tienda')} />
-        )}
-      </div>
-      <Footer 
-        onNavigate={(view, tab) => {
-          setCurrentView(view);
-          if (tab) setActiveTab(tab);
-          window.scrollTo({ top: 0, behavior: 'smooth' });
-        }}
-      />
-      <CartDrawer />
-      
-      {/* Chatbot con FAQ Predictivo únicamente activo en la Tienda */}
-      {currentView === 'tienda' && (
-        <InversaChatbot 
-          onNavigateTab={(tab) => {
-            setActiveTab(tab);
-          }}
-        />
-      )}
     </div>
   );
-};
-
-export const App: React.FC = () => {
+}
+function StorePage() {
+  const [search, setSearch] = useState("");
+  return (
+    <>
+      <Seo
+        title="Tienda"
+        description={
+          "Computadoras, periféricos, redes y servidores. Cobertura de envíos: " +
+          (company.coberturaEnvios ?? pending) +
+          "."
+        }
+      />
+      <div className="page-shell store-strip">
+        <span>
+          Factura CFDI 4.0 · Garantía · Cobertura:{" "}
+          {company.coberturaEnvios ?? pending}
+        </span>
+        <a className="btn secondary" href="/contacto">
+          Cotizar por volumen
+        </a>
+      </div>
+      <CatalogPage
+        activeTab="hardware"
+        setActiveTab={() => {
+          location.assign("/desarrollo");
+        }}
+        searchQuery={search}
+        setSearchQuery={setSearch}
+      />
+    </>
+  );
+}
+export function App() {
   return (
     <AuthProvider>
       <CartProvider>
         <BrowserRouter>
           <Routes>
-            {/* Public Catalog & Quoter */}
-            <Route path="/" element={<MainLayout />} />
-
-            {/* Admin Login */}
+            <Route element={<Layout />}>
+              <Route index element={<HomePage />} />
+              <Route path="/tienda" element={<StorePage />} />
+              <Route path="/desarrollo" element={<DevelopmentPage />} />
+              <Route path="/perfil-corporativo" element={<CorporatePage />} />
+              <Route
+                path="/sobre-inversa"
+                element={<Navigate to="/perfil-corporativo" replace />}
+              />
+              <Route path="/contacto" element={<ContactSection />} />
+              <Route path="/cotizador" element={<Wizard />} />
+              {features.legacyQuoter && (
+                <Route path="/legacy/cotizador" element={<Legacy />} />
+              )}
+              <Route path="/pago/:result" element={<PaymentReturnPage />} />
+              {legalPages.map((p) => (
+                <Route path={p.route} key={p.route} element={<LegalPage />} />
+              ))}
+            </Route>
             <Route path="/login" element={<LoginPage />} />
-
-            {/* Protected Admin Dashboard */}
             <Route
               path="/admin"
               element={
                 <ProtectedRoute>
                   <AdminPage />
-                  <CartDrawer />
                 </ProtectedRoute>
               }
             />
-
-            {/* Catch-all redirect */}
             <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
         </BrowserRouter>
       </CartProvider>
     </AuthProvider>
   );
-};
-
+}
 export default App;

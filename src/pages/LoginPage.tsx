@@ -1,3 +1,6 @@
+import { company as companyData } from '../data/company';
+import { PrivacyNotice } from '../components/PrivacyNotice';
+import { company } from '../data/company';
 import React, { useState, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { 
@@ -35,7 +38,7 @@ export const LoginPage: React.FC = () => {
   const [lockoutSeconds, setLockoutSeconds] = useState(0);
   const [showHelpModal, setShowHelpModal] = useState(false);
 
-  const whatsAppPhone = import.meta.env.VITE_WHATSAPP_PHONE_NUMBER || '5215555555555';
+  const whatsAppPhone = companyData.whatsapp || '';
 
   // Redirigir al panel si ya está autenticado
   useEffect(() => {
@@ -247,7 +250,7 @@ export const LoginPage: React.FC = () => {
                 </>
               )}
             </button>
-          </form>
+          <PrivacyNotice/></form>
 
           {/* Sello de Seguridad Corporativo */}
           <div className="mt-5 pt-4 border-t border-zinc-800 flex items-center justify-between text-[11px] text-zinc-400">
@@ -293,7 +296,7 @@ export const LoginPage: React.FC = () => {
 
             <div className="space-y-2">
               <a
-                href={`https://wa.me/${whatsAppPhone}?text=${encodeURIComponent('Hola Inversa TI, solicito asistencia para restablecimiento o alta de credenciales administrativas.')}`}
+                hidden={!company.whatsapp} href={company.whatsapp ? 'https://wa.me/' + company.whatsapp.replace(/\D/g, '') : undefined}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-full py-2.5 px-3 rounded-lg bg-zinc-100 hover:bg-white text-zinc-950 font-semibold text-xs flex items-center justify-center gap-2 transition-colors shadow-sm"

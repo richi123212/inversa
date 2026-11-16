@@ -1,3 +1,4 @@
+import { company as companyData } from '../data/company';
 import { 
   collection, 
   addDoc, 
@@ -89,6 +90,7 @@ export const createOrder = async (orderData: Omit<Pedido, 'id' | 'createdAt'>): 
       return {
         ...orderData,
         id: docRef.id,
+        savedLocally: false,
         createdAt: new Date().toISOString()
       };
     } catch (e) {
@@ -98,6 +100,7 @@ export const createOrder = async (orderData: Omit<Pedido, 'id' | 'createdAt'>): 
 
   const newOrder: Pedido = {
     ...orderData,
+    savedLocally: true,
     id: `ORD-MX-${Math.floor(100000 + Math.random() * 900000)}`,
     createdAt: new Date().toISOString()
   };
@@ -158,7 +161,7 @@ export const updateOrderDetails = async (orderId: string, updates: Partial<Pedid
 };
 
 export const generateWhatsAppTransferUrl = (pedido: Pedido): string => {
-  const rawPhone = import.meta.env.VITE_WHATSAPP_PHONE_NUMBER || '5215555555555';
+  const rawPhone = companyData.whatsapp || '';
   const cleanPhone = rawPhone.replace(/[^0-9]/g, '');
 
   let message = `[COMPROBANTE DE PAGO / TRANSFERENCIA - INVERSA]\n\n`;
@@ -176,7 +179,7 @@ export const generateWhatsAppTransferUrl = (pedido: Pedido): string => {
 };
 
 export const generateWhatsAppCheckoutUrl = (pedido: Pedido): string => {
-  const rawPhone = import.meta.env.VITE_WHATSAPP_PHONE_NUMBER || '5215555555555';
+  const rawPhone = companyData.whatsapp || '';
   const cleanPhone = rawPhone.replace(/[^0-9]/g, '');
 
   let message = `[ORDEN DE PEDIDO - INVERSA TECNOLOGÍA EN MOVIMIENTO]\n\n`;

@@ -1,3 +1,5 @@
+import { PrivacyNotice } from './PrivacyNotice';
+import { whatsappUrl as companyWhatsappUrl } from '../data/company';
 import React, { useState, useMemo } from 'react';
 import {
   Code2,
@@ -606,7 +608,8 @@ ${listaServiciosText}
 
 ¿Podemos agendar una llamada breve para revisar los requerimientos técnicos?`;
 
-    const url = `https://wa.me/525547630737?text=${encodeURIComponent(mensaje)}`;
+    const url = companyWhatsappUrl(mensaje);
+    if (!url) return;
     window.open(url, '_blank', 'noopener,noreferrer');
   };
 
@@ -1583,7 +1586,7 @@ ${listaServiciosText}
                     {isSubmitting ? <Loader2 className="w-4 h-4 animate-spin" /> : 'Confirmar Folio'}
                   </button>
                 </div>
-              </form>
+              <PrivacyNotice/></form>
             ) : (
               <div>
                 <div className="flex items-center gap-3 mb-4 pb-4 border-b border-[#1e293b]">

@@ -1,3 +1,4 @@
+import { company as companyData } from '../data/company';
 import React from 'react';
 import { 
   FileCheck, 
@@ -18,7 +19,7 @@ export const TrustSignalsBar: React.FC<TrustSignalsBarProps> = ({
   onContactClick,
   className = '' 
 }) => {
-  const whatsappNumber = import.meta.env.VITE_WHATSAPP_PHONE_NUMBER || '5215555555555';
+  const whatsappNumber = companyData.whatsapp || '';
   const cleanPhone = whatsappNumber.replace(/[^0-9]/g, '');
   const whatsappUrl = `https://wa.me/${cleanPhone}?text=${encodeURIComponent('Hola, me comunico desde Inversa para solicitar una cotización corporativa para mi empresa.')}`;
 
@@ -147,7 +148,7 @@ export const TrustSignalsBar: React.FC<TrustSignalsBarProps> = ({
 
             <div className="mt-4 pt-3 border-t border-zinc-800/60">
               <a
-                href={whatsappUrl}
+                hidden={!companyData.whatsapp} href={whatsappUrl}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-full py-2 px-3 rounded-lg bg-zinc-100 hover:bg-white text-zinc-950 text-xs font-semibold flex items-center justify-center gap-1.5 transition-all shadow-sm group"

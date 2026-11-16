@@ -1,3 +1,4 @@
+import { company, whatsappUrl } from '../data/company';
 import React, { useState, useEffect, useRef } from 'react';
 import { 
   MessageSquareText, 
@@ -84,7 +85,8 @@ Puedes escribir tu pregunta abajo (el sistema predecirá la respuesta mientras e
 
   const handleOpenWhatsApp = (customMessage?: string) => {
     const text = customMessage || 'Hola Inversa, me gustaría consultar información técnica sobre sus productos y servicios.';
-    const url = `https://wa.me/525547630737?text=${encodeURIComponent(text)}`;
+    const url = whatsappUrl(text);
+    if (!url) return;
     window.open(url, '_blank', 'noopener,noreferrer');
   };
 
@@ -249,7 +251,7 @@ Puedes revisar una de las preguntas frecuentes más consultadas o comunicarte de
 
               <div>
                 <div className="flex items-center gap-2">
-                  <h4 className="text-xs font-black text-white tracking-wide uppercase">Asistente Inversa</h4>
+                  <h4 className="text-xs font-black text-white tracking-wide uppercase">Asistente Inversa <span className="text-amber-300 text-[9px]">BETA / En pruebas</span></h4>
                   <span className="text-[9px] font-mono px-1.5 py-0.2 rounded bg-cyan-500/10 text-cyan-400 border border-cyan-500/30">
                     FAQ Predictivo
                   </span>
@@ -448,7 +450,7 @@ Puedes revisar una de las preguntas frecuentes más consultadas o comunicarte de
           <div className="px-3 py-1.5 bg-[#080C14] border-t border-white/5 flex items-center justify-between text-[9px] font-mono text-slate-500 shrink-0">
             <span>Inversa Automated Support System</span>
             <button
-              onClick={() => handleOpenWhatsApp()}
+              hidden={!company.whatsapp} onClick={() => handleOpenWhatsApp()}
               className="text-cyan-400 hover:text-cyan-300 hover:underline flex items-center gap-1"
             >
               WhatsApp Soporte <ExternalLink className="w-2.5 h-2.5" />

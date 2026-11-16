@@ -1,3 +1,4 @@
+import { PrivacyNotice } from '../PrivacyNotice';
 import React, { useState } from 'react';
 import { 
   X, 
@@ -348,7 +349,7 @@ export const SaveQuoteModal: React.FC<SaveQuoteModalProps> = ({
                   </button>
                 </div>
               </div>
-            </form>
+            <PrivacyNotice/></form>
           )}
         </div>
 

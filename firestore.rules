@@ -1,0 +1,11 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Los pedidos de pago solo se consultan y modifican por los endpoints autenticados del servidor.
+    match /checkout_orders/{id} { allow read, write: if false; }
+    // Lectura del catálogo público; escritura exclusiva del usuario con claim admin.
+    match /productos/{id} { allow read: if true; allow write: if request.auth != null && request.auth.token.admin == true; }
+    match /categorias/{id} { allow read: if true; allow write: if request.auth != null && request.auth.token.admin == true; }
+    match /{document=**} { allow read, write: if request.auth != null && request.auth.token.admin == true; }
+  }
+}

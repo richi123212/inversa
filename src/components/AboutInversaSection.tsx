@@ -1,3 +1,4 @@
+import { company, pending } from '../data/company';
 import React from 'react';
 import { 
   Cpu, 
@@ -123,7 +124,7 @@ export const AboutInversaSection: React.FC<AboutInversaSectionProps> = ({ onGoTo
           <div className="p-4 rounded-lg bg-zinc-950/70 border border-zinc-800">
             <Truck className="w-5 h-5 text-zinc-200 mb-2" />
             <h4 className="text-sm font-semibold text-white">Logística Asegurada</h4>
-            <p className="text-xs text-zinc-400 mt-1">Despacho con rastreo activo vía DHL Express y FedEx a las 32 entidades federativas del país.</p>
+            <p className="text-xs text-zinc-400 mt-1">{company.coberturaEnvios ?? pending}</p>
           </div>
 
           <div className="p-4 rounded-lg bg-zinc-950/70 border border-zinc-800">
