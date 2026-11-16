@@ -218,12 +218,20 @@ export function QuoteWizard() {
     setId(folio());
     setSaved(null);
   }
+  const presentation =
+    quoteConfig.layouts.find(
+      (layout) => layout.id === answers.presentation?.[0],
+    ) ?? quoteConfig.layouts[0];
   const summaryText =
     id +
     "\n" +
     (name || "Tu proyecto") +
     "\n" +
     calc.selected.map((o) => o.label).join(", ") +
+    "\nPresentación: " +
+    presentation.label +
+    "\nColor principal: " +
+    color +
     "\nTotal: " +
     money(calc.total) +
     " MXN · " +
@@ -310,7 +318,7 @@ export function QuoteWizard() {
           <p>Folio {id}</p>
           <p>
             {success
-              ? "El envío está simulado. Descarga tu propuesta o compártela por WhatsApp para solicitar atención."
+              ? "El envío está simulado. Compártela por WhatsApp para solicitar atención."
               : "Recibimos tu solicitud para revisar los requerimientos."}
           </p>
           <h2>¿Qué sigue?</h2>
@@ -475,6 +483,54 @@ export function QuoteWizard() {
                   </label>
                 </fieldset>
               )}
+              {spec.type === "style" && (
+                <fieldset className="presentation-picker">
+                  <legend>Acomodo de la información</legend>
+                  <p className="muted presentation-help">
+                    Elige cómo presentar el contenido. Puedes combinar cualquier
+                    acomodo con el estilo y color que prefieras, sin costo
+                    adicional.
+                  </p>
+                  <div className="presentation-options">
+                    {quoteConfig.layouts.map((layout) => (
+                      <label
+                        key={layout.id}
+                        className={
+                          "presentation-card " +
+                          (presentation.id === layout.id ? "selected" : "")
+                        }
+                      >
+                        <input
+                          type="radio"
+                          name="presentation"
+                          value={layout.id}
+                          checked={presentation.id === layout.id}
+                          onChange={() => {
+                            setAnswers({
+                              ...answers,
+                              presentation: [layout.id],
+                            });
+                            setNotice("✓ Presentación: " + layout.label);
+                          }}
+                        />
+                        <span
+                          className={"layout-thumbnail thumbnail-" + layout.id}
+                          aria-hidden="true"
+                        >
+                          <i className="thumbnail-nav" />
+                          <i className="thumbnail-copy" />
+                          <i className="thumbnail-image" />
+                          <i className="thumbnail-content" />
+                          <i className="thumbnail-content" />
+                        </span>
+                        <strong>{layout.label}</strong>
+                        <span>{layout.description}</span>
+                      </label>
+                    ))}
+                  </div>
+                </fieldset>
+              )}
+
               <p className="feedback no-print" role="status">
                 {notice}
               </p>
@@ -519,6 +575,27 @@ export function QuoteWizard() {
                         </p>
                       </div>
                     ))}
+                  <div className="summary-category">
+                    <h3>
+                      Presentación de la página
+                      <button
+                        className="no-print"
+                        onClick={() =>
+                          setStep(
+                            quoteConfig.steps.findIndex(
+                              (s) => s.id === "style",
+                            ),
+                          )
+                        }
+                        aria-label="Editar presentación de la página"
+                      >
+                        Editar ✎
+                      </button>
+                    </h3>
+                    <p>
+                      {presentation.label} · Color principal: {color}
+                    </p>
+                  </div>
                   <h3>Stack del proyecto</h3>
                   <div className="flex flex-wrap gap-2">
                     {quoteConfig.stack.map((t) => (
@@ -609,15 +686,6 @@ export function QuoteWizard() {
                     <PrivacyNotice />
                     <PrivacyCheck checked={consent} onChange={setConsent} />
                     <div className="quote-actions no-print">
-                      <button
-                        type="button"
-                        className="btn secondary"
-                        onClick={() => {
-                          if (validate()) window.print();
-                        }}
-                      >
-                        Descargar propuesta PDF
-                      </button>
                       {wa ? (
                         <a
                           className="btn secondary"

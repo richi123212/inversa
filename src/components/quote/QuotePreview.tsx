@@ -65,6 +65,10 @@ export function QuotePreview({
     "◇",
   ];
   const style = answers.style?.[0] ?? "minimal";
+  const layout =
+    quoteConfig.layouts.find(
+      (layout) => layout.id === answers.presentation?.[0],
+    ) ?? quoteConfig.layouts[0];
   const activeColor = has("personalize") ? customColor : color;
   const built =
     Object.values(answers)
@@ -92,6 +96,8 @@ export function QuotePreview({
         className={
           "mock-site style-" +
           style +
+          " layout-" +
+          layout.id +
           (dark || style === "tech" ? " mock-dark" : "")
         }
         style={{ "--preview-accent": activeColor } as CSSProperties}
@@ -113,6 +119,20 @@ export function QuotePreview({
           )}
           {has("roles") && <span className="mock-badge">Admin</span>}
         </header>
+        {layout.id === "sidebar" && answers.type && (
+          <aside
+            className="mock-side-menu"
+            aria-label="Menú lateral de ejemplo"
+          >
+            <span>Menú</span>
+            {(pages.length ? pages : [{ id: "home", label: "Inicio" }]).map(
+              (p) => (
+                <span key={p.id}>{p.label}</span>
+              ),
+            )}
+            <span>Mi cuenta</span>
+          </aside>
+        )}
         {!answers.type ? (
           <div className="mock-skeleton">
             <div />
@@ -122,19 +142,21 @@ export function QuotePreview({
           </div>
         ) : (
           <section className="mock-hero build-in">
-            <span className="sector-icon">{icon}</span>
-            <p>{sector}</p>
-            <h2>{headline}</h2>
-            <p>{desc}</p>
-            <button
-              onClick={() =>
-                document
-                  .querySelector(".mock-widgets")
-                  ?.scrollIntoView({ block: "nearest", behavior: "smooth" })
-              }
-            >
-              Conocer más →
-            </button>
+            <div className="mock-intro">
+              <span className="sector-icon">{icon}</span>
+              <p>{sector}</p>
+              <h2>{headline}</h2>
+              <p>{desc}</p>
+              <button
+                onClick={() =>
+                  document
+                    .querySelector(".mock-widgets")
+                    ?.scrollIntoView({ block: "nearest", behavior: "smooth" })
+                }
+              >
+                Conocer más →
+              </button>
+            </div>
             <div className="mock-illustration">
               <span>{icon}</span>
               <i />

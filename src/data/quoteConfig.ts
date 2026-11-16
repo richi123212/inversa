@@ -35,6 +35,7 @@ export const quoteConfig: {
   legend: string;
   stack: string[];
   colors: string[];
+  layouts: { id: string; label: string; description: string }[];
   steps: QuoteStep[];
 } = {
   base: option(
@@ -52,6 +53,31 @@ export const quoteConfig: {
     "Estimación de referencia. El precio final se confirma tras revisar los requerimientos.",
   stack: ["PHP", "JavaScript", "Bootstrap", "HTML", "AJAX", "MySQL"],
   colors: ["#06b6d4", "#2563eb", "#7c3aed", "#059669", "#e11d48", "#d97706"],
+  layouts: [
+    {
+      id: "split",
+      label: "Texto e imagen",
+      description:
+        "Presentación dividida, con el mensaje a un lado y la imagen al otro.",
+    },
+    {
+      id: "centered",
+      label: "Portada centrada",
+      description: "Título al centro, imagen amplia y contenido en tarjetas.",
+    },
+    {
+      id: "editorial",
+      label: "Imagen primero",
+      description:
+        "Una imagen de apertura y la información en secciones de una columna.",
+    },
+    {
+      id: "sidebar",
+      label: "Menú lateral",
+      description:
+        "Navegación a un costado y contenido organizado como un portal.",
+    },
+  ],
   steps: [
     {
       id: "type",

@@ -110,6 +110,17 @@ for (const width of [375, 768, 1440]) {
       .fill("Clínica Ejemplo");
     await next();
     await choose("Tech oscuro");
+    const priceBefore = await page.locator(".quote-bottom strong").textContent();
+    for (const [id,label] of [["split","Texto e imagen"],["centered","Portada centrada"],["editorial","Imagen primero"],["sidebar","Menú lateral"]]) {
+      await page.locator(".presentation-card").filter({hasText:label}).click();
+      assert(await page.locator("input[name=presentation][value="+id+"]").isChecked());
+      assert.equal(await page.locator(".mock-site.layout-"+id).count(),1);
+      assert.equal(await page.locator(".quote-bottom strong").textContent(),priceBefore);
+      await noOverflow("presentación "+id);
+    }
+    if(width===375) await page.getByRole("button",{name:"Ver mi página"}).click();
+    await page.screenshot({path:"test-results/presentation-"+width+".png",fullPage:true});
+    if(width===375) await page.getByRole("button",{name:"Cerrar vista previa"}).click();
     await next();
     await choose("Nosotros");
     await choose("Contacto");
@@ -190,23 +201,8 @@ for (const width of [375, 768, 1440]) {
       path: "test-results/quote-" + width + ".png",
       fullPage: true,
     });
-    await page.evaluate(() => {
-      window.print = () => {
-        window.__printed = true;
-      };
-    });
-    await page.getByRole("button", { name: "Descargar propuesta PDF" }).click();
-    assert(await page.evaluate(() => window.__printed));
-    if (width === 1440) {
-      await page.emulateMedia({ media: "print" });
-      await page.pdf({
-        path: "test-results/propuesta.pdf",
-        format: "A4",
-        printBackground: true,
-        margin: { top: "15mm", right: "15mm", bottom: "15mm", left: "15mm" },
-      });
-      await page.emulateMedia({ media: "screen" });
-    }
+    assert.equal(await page.getByRole("button",{name:"Descargar propuesta PDF"}).count(),0);
+    assert(await page.locator(".summary-category").filter({hasText:"Presentación de la página"}).textContent().then(text=>text.includes("Menú lateral")));
     await page
       .getByRole("button", { name: "Solicitar propuesta formal" })
       .click();
@@ -269,7 +265,7 @@ for (const width of [375, 768, 1440]) {
     console.log(
       "OK " +
         width +
-        "px: home, perfil, 5 legales, 14 pasos, dependencias, restauración, privacidad, PDF, envío simulado y checkout sin llaves.",
+        "px: home, perfil, 5 legales, 14 pasos, dependencias, restauración, privacidad, acomodos sin recargo, envío simulado y checkout sin llaves.",
     );
   } catch (error) {
     failures.push(width + ": " + error.message);

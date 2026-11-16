@@ -272,3 +272,56 @@ progress::-webkit-progress-value{background:#67e8f9}
  .mock-site button,.mock-badge{background:#ddd!important;color:black!important}
  .mock-site .mock-hero h2{max-width:100%}
 }
+
+/* Presentation choices are independent of visual style and project pricing. */
+.presentation-picker{margin-top:32px;border:0;padding:0;min-width:0}
+.presentation-picker legend{font-size:1rem;font-weight:700;margin-bottom:10px}
+.presentation-help{font-size:.8rem;line-height:1.7;margin-bottom:18px}
+.presentation-options{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.presentation-card{position:relative;display:grid;gap:9px;padding:16px;background:#111114;border:1px solid #3f3f46;border-radius:12px;cursor:pointer;min-width:0}
+.presentation-card.selected{border-color:#67e8f9;background:#08334455}
+.presentation-card:focus-within{outline:2px solid #67e8f9;outline-offset:3px}
+.presentation-card input{position:absolute;top:12px;right:12px;accent-color:#06b6d4}
+.presentation-card strong{font-size:.8rem}
+.presentation-card>span:last-child{font-size:.72rem;line-height:1.65;color:#b4b4bc}
+.layout-thumbnail{display:grid;grid-template-columns:1fr 1fr;grid-template-rows:7px 28px 14px;gap:5px;padding:8px;width:100%;height:78px;border-radius:6px;background:#24242b;border:1px solid #52525b}
+.layout-thumbnail i{display:block;border-radius:2px;background:#52525b}
+.layout-thumbnail .thumbnail-nav{grid-column:1/-1;background:#71717a}
+.layout-thumbnail .thumbnail-image{background:#67e8f9}
+.thumbnail-centered{grid-template-rows:7px 10px 22px 8px}
+.thumbnail-centered .thumbnail-copy,.thumbnail-centered .thumbnail-image{grid-column:1/-1}
+.thumbnail-centered .thumbnail-copy{width:65%;justify-self:center}
+.thumbnail-editorial{grid-template-rows:7px 22px 10px 8px}
+.thumbnail-editorial .thumbnail-image{grid-column:1/-1;grid-row:2}
+.thumbnail-editorial .thumbnail-copy{grid-column:1/-1;grid-row:3}
+.thumbnail-sidebar{grid-template-columns:22% 1fr 1fr;grid-template-rows:28px 20px}
+.thumbnail-sidebar .thumbnail-nav{grid-column:1;grid-row:1/3;background:#67e8f9}
+.thumbnail-sidebar .thumbnail-image{background:#71717a}
+.layout-split .mock-hero{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);align-items:center;gap:20px}
+.layout-split .mock-hero h2,.layout-split .mock-hero p{max-width:100%}
+.layout-split .mock-illustration{margin:0;height:180px;position:relative}
+.layout-split .mock-illustration i{width:10%}
+.layout-centered .mock-hero{text-align:center}
+.layout-centered .mock-hero h2,.layout-centered .mock-hero p{max-width:100%;margin-inline:auto}
+.layout-centered .mock-illustration{height:140px}
+.layout-editorial .mock-hero{display:flex;flex-direction:column;gap:24px}
+.layout-editorial .mock-illustration{order:-1;height:170px;width:100%;margin:0;border-radius:0}
+.layout-editorial .mock-hero h2,.layout-editorial .mock-hero p{max-width:100%}
+.layout-editorial .mock-widgets{grid-template-columns:1fr}
+.layout-editorial .mock-widget{border-radius:0;border-width:0 0 1px;padding-block:22px}
+.layout-sidebar{display:grid;grid-template-columns:105px minmax(0,1fr);align-content:start}
+.layout-sidebar>.mock-header,.layout-sidebar>footer{grid-column:1/-1}
+.layout-sidebar>.mock-header nav{display:none}
+.mock-side-menu{grid-column:1;grid-row:2/4;border-right:1px solid #8884;background:#8881;display:flex;flex-direction:column;gap:14px;padding:20px 12px;min-width:0;font-size:.6rem;overflow-wrap:anywhere}
+.mock-side-menu>span:first-child{font-weight:700;color:inherit;border-bottom:2px solid var(--preview-accent);padding-bottom:10px}
+.layout-sidebar>.mock-hero,.layout-sidebar>.mock-widgets{grid-column:2;min-width:0}
+.layout-sidebar>.mock-hero{padding:20px}
+.layout-sidebar .mock-hero h2,.layout-sidebar .mock-hero p{max-width:100%}
+.layout-sidebar .mock-widgets{grid-template-columns:1fr}
+.device-mobile .layout-split .mock-hero{grid-template-columns:1fr}
+.device-mobile .layout-split .mock-illustration{height:100px}
+.device-mobile .layout-sidebar{grid-template-columns:74px minmax(0,1fr)}
+.device-mobile .layout-sidebar .mock-hero{padding:14px}
+.device-mobile .layout-sidebar .mock-hero h2{font-size:1.1rem}
+.device-mobile .layout-sidebar .mock-illustration{height:70px}
+@media(max-width:1000px) and (min-width:768px){.layout-split .mock-hero{grid-template-columns:1fr}.layout-split .mock-illustration{height:100px}.layout-sidebar{grid-template-columns:80px minmax(0,1fr)}}
